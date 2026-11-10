@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FAQS } from '../data/visaData';
 
 export const FaqSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First one open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -19,7 +19,7 @@ export const FaqSection: React.FC = () => {
             Giải Đáp Thắc Mắc Thường Gặp (FAQ)
           </h2>
           <p className="text-[15px] text-[#64748b]">
-            Những câu hỏi được khách hàng quan tâm nhiều nhất khi chuẩn bị hồ sơ thị thực.
+            Thông tin rõ ràng về tư cách doanh nghiệp tư nhân, phạm vi tư vấn, chi phí và thẩm quyền xét duyệt.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export const FaqSection: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-[#434750] text-[14px] leading-relaxed border-t border-[#e2e8f0]/60 animate-in fade-in duration-150">
+                  <div className="px-6 pb-5 pt-2 text-[#434750] text-[14px] leading-relaxed border-t border-[#e2e8f0]/60 animate-in fade-in duration-150">
                     {faq.answer}
                   </div>
                 )}

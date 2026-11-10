@@ -10,13 +10,13 @@ export const FloatingContactWidget: React.FC = () => {
       {/* 1. Email Button */}
       <div className="relative flex items-center group/btn">
         <span className="absolute right-full mr-3 px-3 py-1.5 rounded-lg bg-white text-[#002552] text-[12px] font-bold shadow-lg border border-[#e2e8f0] whitespace-nowrap opacity-0 pointer-events-none group-hover/btn:opacity-100 transition-opacity duration-200">
-          Gửi Email: visa5giay@gmail.com
+          Gửi Email: info@visa5s.com.vn
         </span>
         <a
-          href="mailto:visa5giay@gmail.com"
+          href="mailto:info@visa5s.com.vn"
           className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer"
           style={{ backgroundColor: '#00a5f4' }}
-          title="Gửi Email: visa5giay@gmail.com"
+          title="Gửi Email: info@visa5s.com.vn"
           aria-label="Gửi Email"
         >
           <span className="material-symbols-outlined text-[24px]">mail</span>
@@ -26,7 +26,7 @@ export const FloatingContactWidget: React.FC = () => {
       {/* 2. Zalo Button */}
       <div className="relative flex items-center group/btn">
         <span className="absolute right-full mr-3 px-3 py-1.5 rounded-lg bg-white text-[#002552] text-[12px] font-bold shadow-lg border border-[#e2e8f0] whitespace-nowrap opacity-0 pointer-events-none group-hover/btn:opacity-100 transition-opacity duration-200">
-          Chat Zalo: 0911 909 686
+          Chat Zalo: 0911.909.686
         </span>
         <a
           href="https://zalo.me/0911909686"
@@ -41,10 +41,10 @@ export const FloatingContactWidget: React.FC = () => {
         </a>
       </div>
 
-      {/* 3. Phone Call Button with ripple effect */}
+      {/* 3. Phone Call Button */}
       <div className="relative flex items-center group/btn">
         <span className="absolute right-full mr-3 px-3 py-1.5 rounded-lg bg-white text-[#002552] text-[12px] font-bold shadow-lg border border-[#e2e8f0] whitespace-nowrap opacity-0 pointer-events-none group-hover/btn:opacity-100 transition-opacity duration-200">
-          Hotline: 0911 909 686
+          Hotline: 0911.909.686
         </span>
         <div className="relative flex items-center justify-center">
           <span
@@ -55,7 +55,7 @@ export const FloatingContactWidget: React.FC = () => {
             href="tel:0911909686"
             className="relative w-12 h-12 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer"
             style={{ backgroundColor: '#00155a' }}
-            title="Gọi Hotline: 0911 909 686"
+            title="Gọi Hotline: 0911.909.686"
             aria-label="Gọi điện thoại"
           >
             <span className="material-symbols-outlined text-[24px]">call</span>

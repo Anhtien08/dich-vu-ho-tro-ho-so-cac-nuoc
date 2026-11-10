@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
           >
             <img
               src="/assets/aistudio/Image_6_5c5c9cf5.png"
-              alt="VISA5S Logo"
+              alt="Logo doanh nghiệp tư nhân VISA5S"
               className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
             />
             <div className="hidden sm:flex flex-col leading-none">
@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
         </div>
 
         {/* Navigation Links (Desktop) */}
-        <nav className="hidden xl:flex items-center gap-7">
+        <nav className="hidden xl:flex items-center gap-6">
           <a
             href="#"
             className="text-[14px] font-semibold text-[#1e293b] hover:text-[#0060aa] transition-colors whitespace-nowrap"
@@ -55,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
             href="#ho-so-thi-thuc"
             className="text-[14px] font-medium text-[#434750] hover:text-[#0060aa] transition-colors whitespace-nowrap"
           >
-            Hồ sơ thị thực
+            Diện hồ sơ
           </a>
           <a
             href="#quoc-gia"
@@ -70,10 +70,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
             Quy trình
           </a>
           <a
-            href="#danh-gia"
+            href="#minh-bach"
             className="text-[14px] font-medium text-[#434750] hover:text-[#0060aa] transition-colors whitespace-nowrap"
           >
-            Đánh giá
+            Minh bạch
           </a>
           <a
             href="#faq"
@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
           <a
             href="tel:0911909686"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#eff4ff] text-[#0060aa] border border-[#d3e4fe] hover:bg-[#dce9ff] transition-colors whitespace-nowrap shadow-xs"
-            title="Gọi Hotline tư vấn 24/7"
+            title="Hotline tư vấn VISA5S"
           >
             <span className="material-symbols-outlined text-[18px]">call</span>
             <span className="text-[13px] font-bold text-[#002552]">0911.909.686</span>
@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
             onClick={() => onOpenConsultModal()}
             className="hidden md:inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-[#ea580c] text-white font-semibold text-[14px] hover:bg-[#c2410c] transition-all shadow-sm active:scale-95 cursor-pointer whitespace-nowrap"
           >
-            Tư vấn ngay
+            Nhận tư vấn ban đầu
           </button>
 
           {/* Mobile menu button */}
@@ -143,7 +143,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >
-              <span>Hồ Sơ Thị Thực Chuyên Biệt</span>
+              <span>Tư Vấn Theo Mục Đích Chuyến Đi</span>
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
             <a
@@ -151,7 +151,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >
-              <span>Hồ Sơ Thị Thực Các Nước</span>
+              <span>Thông Tin Tham Khảo Các Quốc Gia</span>
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
             <a
@@ -159,15 +159,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >
-              <span>Quy Trình 4 Bước & Đánh Giá Hồ Sơ</span>
+              <span>Quy Trình Tư Vấn 4 Bước</span>
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
             <a
-              href="#danh-gia"
+              href="#minh-bach"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >
-              <span>Đánh Giá Khách Hàng</span>
+              <span>Minh Bạch Chi Phí & Pháp Lý</span>
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
             <a
@@ -175,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >
-              <span>Hỏi Đáp Thị Thực (FAQ)</span>
+              <span>Hỏi Đáp (FAQ)</span>
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
             <a
@@ -183,7 +183,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >
-              <span>Liên Hệ Trực Tiếp & Văn Phòng</span>
+              <span>Liên Hệ & Thông Tin Pháp Lý</span>
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
 
@@ -197,7 +197,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
                 className="w-full h-11 flex items-center justify-center gap-2 bg-[#ea580c] text-white rounded-lg font-bold text-[14px] shadow-sm active:scale-95"
               >
                 <span className="material-symbols-outlined text-[20px]">edit_calendar</span>
-                <span>Đăng ký tư vấn miễn phí</span>
+                <span>Nhận tư vấn ban đầu</span>
               </button>
             </div>
           </nav>

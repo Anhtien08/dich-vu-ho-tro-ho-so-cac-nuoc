@@ -6,13 +6,13 @@ export const WhyChooseUs: React.FC = () => {
       <div className="max-w-[1240px] mx-auto px-4 lg:px-8 flex flex-col gap-12">
         <div className="flex flex-col items-center text-center gap-2 max-w-2xl mx-auto">
           <span className="text-[11px] font-bold text-[#0060aa] uppercase tracking-widest">
-            GIÁ TRỊ KHÁC BIỆT
+            PHẠM VI TƯ VẤN ĐỘC LẬP
           </span>
           <h2 className="text-[28px] sm:text-[36px] font-extrabold text-[#002552] tracking-tight">
-            Tại Sao Hàng Ngàn Khách Hàng Tin Chọn VISA5S?
+            Giá Trị Hỗ Trợ Thực Tế Tại VISA5S
           </h2>
           <p className="text-[15px] text-[#64748b] leading-relaxed">
-            Chúng tôi kết hợp sự tỉ mỉ chuẩn xác của quy trình pháp lý với thái độ phục vụ tận tâm, văn minh và hiện đại.
+            Đồng hành cung cấp thông tin, hướng dẫn chuẩn bị giấy tờ rõ ràng và tôn trọng hoàn toàn thẩm quyền của cơ quan tiếp nhận chính thức.
           </p>
         </div>
 
@@ -24,10 +24,10 @@ export const WhyChooseUs: React.FC = () => {
             </div>
             <div className="flex flex-col gap-2">
               <h3 className="text-[18px] font-bold text-[#002552]">
-                Tư Vấn & Đánh Giá Cá Nhân Hóa
+                Đánh Giá Sơ Bộ & Tư Vấn Thông Tin
               </h3>
               <p className="text-[13px] text-[#64748b] leading-relaxed">
-                Phân tích chi tiết từng điểm mạnh yếu trong hồ sơ công việc, tài chính và lịch sử du lịch để đưa ra phương án tối ưu nhất, không áp dụng khuôn mẫu chung.
+                Trao đổi theo từng hoàn cảnh công việc, tài chính và mục đích chuyến đi để giúp khách hàng nắm rõ các yêu cầu tham khảo từ quốc gia dự định đến.
               </p>
             </div>
           </div>
@@ -39,10 +39,10 @@ export const WhyChooseUs: React.FC = () => {
             </div>
             <div className="flex flex-col gap-2">
               <h3 className="text-[18px] font-bold text-[#002552]">
-                Kiểm Tra Hồ Sơ & Dịch Thuật Chuẩn Xác
+                Rà Soát Tính Đầy Đủ & Nhất Quán
               </h3>
               <p className="text-[13px] text-[#64748b] leading-relaxed">
-                Xử lý hồ sơ công chứng tư pháp, dịch thuật chuẩn ngôn ngữ đích, điền tờ khai chuẩn form đại sứ quán, tuyệt đối không để xảy ra sai sót thông tin.
+                Hỗ trợ kiểm tra đối chiếu thông tin giữa các chứng từ nhân thân, công việc, lịch trình và hướng dẫn chuẩn bị giấy tờ dịch thuật khi có yêu cầu.
               </p>
             </div>
           </div>
@@ -54,10 +54,10 @@ export const WhyChooseUs: React.FC = () => {
             </div>
             <div className="flex flex-col gap-2">
               <h3 className="text-[18px] font-bold text-[#002552]">
-                Chi Phí Minh Bạch & Báo Giá Rõ Ràng
+                Tách Bạch Phí Tư Vấn & Lệ Phí
               </h3>
               <p className="text-[13px] text-[#64748b] leading-relaxed">
-                Liệt kê chi tiết lệ phí lãnh sự và phí hỗ trợ hoàn tất ngay từ ban đầu. Cam kết thỏa thuận rõ ràng, không phát sinh bất kỳ khoản phụ phí ẩn nào.
+                Thông báo rõ ràng phạm vi công việc, phí dịch vụ tư vấn độc lập của VISA5S và các khoản lệ phí chính thức khách hàng thanh toán cho cơ quan có thẩm quyền.
               </p>
             </div>
           </div>
@@ -65,14 +65,14 @@ export const WhyChooseUs: React.FC = () => {
           {/* Card 4 */}
           <div className="p-6 sm:p-7 rounded-2xl bg-[#F5F7FA] border border-[#e2e8f0] flex flex-col gap-4 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
             <div className="w-14 h-14 rounded-xl bg-[#002552] text-white flex items-center justify-center shadow-md">
-              <span className="material-symbols-outlined text-[28px]">update</span>
+              <span className="material-symbols-outlined text-[28px]">public</span>
             </div>
             <div className="flex flex-col gap-2">
               <h3 className="text-[18px] font-bold text-[#002552]">
-                Đồng Hành & Cập Nhật Tiến Độ Xuyên Suốt
+                Hướng Dẫn Theo Nguồn Chính Thức
               </h3>
               <p className="text-[13px] text-[#64748b] leading-relaxed">
-                Cung cấp mã tra cứu tiến độ thời gian thực, chủ động nhắc lịch lăn tay phỏng vấn và hỗ trợ giao nhận kết quả hộ chiếu an toàn tận tay khách hàng.
+                Cung cấp thông tin tham khảo về địa điểm tiếp nhận, phương thức đặt lịch và liên kết website chính thức để khách hàng chủ động thực hiện đúng quy định.
               </p>
             </div>
           </div>

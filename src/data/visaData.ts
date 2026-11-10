@@ -1,234 +1,528 @@
+export interface OfficialSource {
+  label: string;
+  url: string;
+}
+
 export interface CountryVisa {
   id: string;
   name: string;
   continent: 'asia' | 'europe' | 'america' | 'australia';
   continentLabel: string;
-  badgeTime: string;
+  badgeInfo: string;
   heroImage: string;
   shortDesc: string;
   tags: string[];
+  purposes: string[];
   visaTypes: string[];
-  processingTime: string;
-  validity: string;
-  stayDuration: string;
-  successRate: string;
-  difficulty: 'Dễ' | 'Trung bình' | 'Cần chuẩn bị kỹ' | 'Phỏng vấn kỹ';
+  processingTimeRef: string;
+  validityRef: string;
+  stayDurationRef: string;
+  preparationLevel: 'Cơ bản' | 'Trung bình' | 'Cần chuẩn bị kỹ' | 'Có phỏng vấn';
   requirements: {
     personal: string[];
     employment: string[];
     financial: string[];
     trip: string[];
   };
-  highlights: string[];
+  preparationNotes: string[];
+  feeTransparency: {
+    consultingFee: string;
+    officialFee: string;
+    thirdPartyFee: string;
+  };
+  officialSources: OfficialSource[];
 }
+
+export const LEGAL_DISCLAIMER = {
+  title: 'THÔNG TIN PHÁP LÝ',
+  paragraphs: [
+    'VISA5S là doanh nghiệp tư nhân cung cấp dịch vụ tư vấn thông tin và hỗ trợ chuẩn bị hồ sơ xuất nhập cảnh, thị thực quốc tế.',
+    'VISA5S không phải cơ quan Chính phủ, Đại sứ quán hoặc Lãnh sự quán; không trực tiếp cấp thị thực và không có thẩm quyền quyết định kết quả xét duyệt hồ sơ.',
+    'Quyết định cấp hoặc từ chối thị thực thuộc cơ quan có thẩm quyền của quốc gia tiếp nhận. Khách hàng cần kiểm tra các yêu cầu, lệ phí và quy trình mới nhất tại website chính thức của cơ quan có thẩm quyền.',
+    'Phí dịch vụ tư vấn của VISA5S là khoản phí độc lập với lệ phí do cơ quan nhà nước hoặc đơn vị tiếp nhận chính thức quy định.',
+  ],
+  formNotice:
+    'Thông tin được sử dụng để VISA5S liên hệ tư vấn về dịch vụ. Việc gửi thông tin không đồng nghĩa với việc đã nộp hồ sơ xin thị thực cho cơ quan có thẩm quyền.',
+};
 
 export const COUNTRIES: CountryVisa[] = [
   {
     id: 'han-quoc',
-    name: 'Thị thực Hàn Quốc',
+    name: 'Hàn Quốc',
     continent: 'asia',
     continentLabel: 'CHÂU Á',
-    badgeTime: 'Thời gian: 5 - 7 ngày làm việc',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDfzl8odmLqTLx7i8lwdElucttF8Ubd3nu73YoBePHxQBv8T79k4cfu4oMymZa9plAXGJo8pVs0piGqwZO4gcUzbR8HWf80ePySlfTzHuhHux04lp2NBnkihZSdfSDaIuqDxckGYGyTzSezqbWguXjCx5iZ2itwSONihMzwit9U8qPGiBH9H49d9qDfI4Xr-b4Uv7IlUqd43PTo2Y0kflQlW8EtAsAlto4hMI4dGWqwRaqlQg7HXflB',
-    shortDesc: 'Hồ sơ diện C-3-9 du lịch tự túc, thương mại kinh doanh ngắn hạn và hỗ trợ chứng minh tài chính linh hoạt.',
-    tags: ['Tỷ lệ đạt kết quả 99%', 'Hỗ trợ hồ sơ yếu'],
-    visaTypes: ['C-3-9 Du lịch tự túc', 'C-3-4 Thương mại ngắn hạn', 'C-3-1 Thăm thân', 'Multiple 5 năm / 10 năm'],
-    processingTime: '5 - 7 ngày làm việc',
-    validity: '3 tháng (1 lần) hoặc 5 - 10 năm (nhiều lần)',
-    stayDuration: 'Tối đa 30 - 90 ngày/lần nhập cảnh',
-    successRate: '99%',
-    difficulty: 'Trung bình',
+    badgeInfo: 'Tham khảo: Du lịch, Công tác, Thăm thân',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDfzl8odmLqTLx7i8lwdElucttF8Ubd3nu73YoBePHxQBv8T79k4cfu4oMymZa9plAXGJo8pVs0piGqwZO4gcUzbR8HWf80ePySlfTzHuhHux04lp2NBnkihZSdfSDaIuqDxckGYGyTzSezqbWguXjCx5iZ2itwSONihMzwit9U8qPGiBH9H49d9qDfI4Xr-b4Uv7IlUqd43PTo2Y0kflQlW8EtAsAlto4hMI4dGWqwRaqlQg7HXflB',
+    shortDesc:
+      'Tư vấn thông tin chuẩn bị hồ sơ theo diện ngắn hạn (du lịch, công tác, thăm thân) dựa trên quy định tham khảo của Hàn Quốc.',
+    tags: ['Tư vấn giấy tờ', 'Thông tin tham khảo'],
+    purposes: ['Du lịch ngắn hạn', 'Công tác / Thương mại', 'Thăm thân nhân'],
+    visaTypes: [
+      'C-3-9 Du lịch ngắn hạn (tham khảo)',
+      'C-3-4 Thương mại ngắn hạn (tham khảo)',
+      'C-3-1 Thăm thân (tham khảo)',
+      'Diện nhập cảnh nhiều lần theo điều kiện quy định',
+    ],
+    processingTimeRef: 'Tham khảo theo lịch tiếp nhận của cơ quan lãnh sự / KVAC',
+    validityRef: 'Theo quyết định của cơ quan có thẩm quyền Hàn Quốc',
+    stayDurationRef: 'Theo quyết định của cơ quan lãnh sự và hải quan nhập cảnh',
+    preparationLevel: 'Trung bình',
     requirements: {
-      personal: ['Hộ chiếu gốc còn hạn trên 6 tháng', 'Căn cước công dân gắn chip bản sao', '2 ảnh thẻ 3.5x4.5cm nền trắng chuẩn quốc tế', 'Đăng ký kết hôn / Giấy khai sinh con (nếu đi cùng gia đình)'],
-      employment: ['Hợp đồng lao động song ngữ hoặc tiếng Anh', 'Bảng lương hoặc sao kê lương 3-6 tháng gần nhất', 'Đơn xin nghỉ phép đi du lịch có dấu mộc công ty', 'Đối với chủ DN: Giấy phép ĐKKD & biên lai nộp thuế 3 tháng gần nhất'],
-      financial: ['Sổ tiết kiệm tối thiểu 100 - 150 triệu VND (gửi từ 1 tháng trở lên)', 'Xác nhận số dư tài khoản ngân hàng thời điểm hiện tại', 'Giấy tờ sở hữu nhà đất, ô tô (nếu có để gia tăng uy tín)'],
-      trip: ['Lịch trình chuyến đi chi tiết theo từng ngày', 'Booking vé máy bay khứ hồi (chưa cần thanh toán)', 'Booking phòng khách sạn tương ứng lịch trình'],
+      personal: [
+        'Hộ chiếu bản gốc còn hạn theo quy định hiện hành',
+        'Giấy tờ tùy thân (CCCD) và thông tin nhân thân',
+        'Ảnh thẻ đúng kích thước và quy chuẩn nền trắng',
+        'Giấy tờ chứng minh quan hệ gia đình (nếu đi cùng người thân)',
+      ],
+      employment: [
+        'Hợp đồng lao động hoặc quyết định bổ nhiệm',
+        'Bảng lương hoặc sao kê tài khoản nhận lương gần nhất',
+        'Đơn xin nghỉ phép có xác nhận của đơn vị công tác',
+        'Giấy phép đăng ký kinh doanh & chứng từ thuế (nếu là chủ doanh nghiệp)',
+      ],
+      financial: [
+        'Giấy tờ chứng minh số dư tiết kiệm hoặc sao kê tài khoản ngân hàng',
+        'Giấy tờ chứng minh tài sản hợp pháp khác (nếu thuộc diện cần bổ sung)',
+      ],
+      trip: [
+        'Lịch trình chuyến đi dự kiến theo từng ngày',
+        'Thông tin đặt vé máy bay và lưu trú dự kiến phục vụ đối chiếu',
+      ],
     },
-    highlights: ['Ủy thác nộp hồ sơ tại Trung tâm Đăng ký Thị thực KVAC', 'Hỗ trợ hoàn thiện hồ sơ khẩn theo lịch khởi hành', 'Miễn chứng minh tài chính cho đối tượng có sổ hộ khẩu đô thị lớn hoặc đã từng đi OECD'],
+    preparationNotes: [
+      'Kiểm tra khu vực tiếp nhận hồ sơ theo nơi cư trú/hộ khẩu trước khi chuẩn bị giấy tờ.',
+      'Thông tin trên tờ khai, công việc và lịch trình cần đồng nhất, trung thực.',
+      'Khách hàng có thể tự tra cứu điều kiện miễn chứng minh tài chính (nếu thuộc đối tượng áp dụng) và tự đặt lịch nộp trực tiếp tại cổng chính thức.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Báo giá minh bạch theo phạm vi tư vấn, đánh giá và hướng dẫn rà soát hồ sơ của VISA5S.',
+      officialFee: 'Lệ phí thị thực và phí trung tâm tiếp nhận (nếu có) thanh toán trực tiếp theo biểu phí chính thức.',
+      thirdPartyFee: 'Phí dịch thuật, công chứng hoặc chụp ảnh do đơn vị cung cấp bên thứ ba thu theo thực tế (nếu khách hàng cần).',
+    },
+    officialSources: [
+      { label: 'Cổng thông tin Thị thực Hàn Quốc (Korea Visa Portal)', url: 'https://www.visa.go.kr/' },
+    ],
   },
   {
     id: 'nhat-ban',
-    name: 'Thị thực Nhật Bản',
+    name: 'Nhật Bản',
     continent: 'asia',
     continentLabel: 'CHÂU Á',
-    badgeTime: 'Thời gian: 6 - 8 ngày làm việc',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDqZ6YwlbasMm7-b1gUZOZDsdysQI1ZvoPh7nyzoYIanux9wiCPeOChGFd_Io7X67cbBoMhr9Ko3bc-VFp36rfdm0dfOtomYS40lrd9tcnT9HSi2-1R3IyICFyIo5dVdn4ATSzLSQNtdni0GcGx8mOJBehlgbzPdta5N6CNrAYqgJUjGlZIGtJjEkNpPRtZy0RhiHVHwbsyEtnmB5oqT5DLUuROWoPmtCt1ktpSpUxnlAFgZLio3vSk',
-    shortDesc: 'Thị thực du lịch tự túc, thư mời người thân, hồ sơ thương mại nhiều lần (multiple entry) đơn giản hóa thủ tục.',
-    tags: ['Ủy thác lãnh sự', 'Miễn phỏng vấn'],
-    visaTypes: ['Hồ sơ Du lịch tự túc Single', 'Hồ sơ Thương mại ngắn hạn', 'Hồ sơ Thăm người thân tại Nhật', 'Thị thực Nhiều lần (Multiple 1 - 3 - 5 năm)'],
-    processingTime: '6 - 8 ngày làm việc',
-    validity: '3 tháng (1 lần) hoặc 3 - 5 năm (nhiều lần)',
-    stayDuration: '15 ngày hoặc 30 ngày',
-    successRate: '98.5%',
-    difficulty: 'Trung bình',
+    badgeInfo: 'Tham khảo: Du lịch, Thương mại, Thăm thân',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDqZ6YwlbasMm7-b1gUZOZDsdysQI1ZvoPh7nyzoYIanux9wiCPeOChGFd_Io7X67cbBoMhr9Ko3bc-VFp36rfdm0dfOtomYS40lrd9tcnT9HSi2-1R3IyICFyIo5dVdn4ATSzLSQNtdni0GcGx8mOJBehlgbzPdta5N6CNrAYqgJUjGlZIGtJjEkNpPRtZy0RhiHVHwbsyEtnmB5oqT5DLUuROWoPmtCt1ktpSpUxnlAFgZLio3vSk',
+    shortDesc:
+      'Hướng dẫn tìm hiểu danh mục giấy tờ, cách lập lịch trình và chuẩn bị thông tin hồ sơ nhập cảnh Nhật Bản theo mục đích chuyến đi.',
+    tags: ['Hướng dẫn hồ sơ', 'Rà soát thông tin'],
+    purposes: ['Du lịch tự túc', 'Công tác ngắn hạn', 'Thăm người thân'],
+    visaTypes: [
+      'Du lịch ngắn hạn một lần (tham khảo)',
+      'Thương mại ngắn hạn (tham khảo)',
+      'Thăm người thân (tham khảo)',
+      'Nhập cảnh nhiều lần theo điều kiện của cơ quan lãnh sự',
+    ],
+    processingTimeRef: 'Phụ thuộc lịch xét duyệt của Đại sứ quán / Tổng Lãnh sự quán Nhật Bản',
+    validityRef: 'Do cơ quan lãnh sự Nhật Bản quyết định theo từng hồ sơ',
+    stayDurationRef: 'Do cơ quan lãnh sự và cơ quan nhập cảnh Nhật Bản quyết định',
+    preparationLevel: 'Trung bình',
     requirements: {
-      personal: ['Hộ chiếu bản gốc còn hạn ít nhất 6 tháng', 'Tờ khai xin thị thực có dán ảnh 4.5x4.5cm chuẩn ICAO', 'Căn cước công dân gắn chip & thông tin nhân khẩu VNeID'],
-      employment: ['Hợp đồng lao động / Giấy xác nhận công tác có đóng dấu', 'Sao kê tài khoản nhận lương 6 tháng gần nhất', 'Giấy phép kinh doanh đối với chủ doanh nghiệp'],
-      financial: ['Sao kê tài khoản ngân hàng số dư tối thiểu 120 triệu VND', 'Sổ tiết kiệm hoặc xác nhận số dư tài chính', 'Giấy tờ sở hữu bất động sản (nếu có)'],
-      trip: ['Hành trình chi tiết (Lưu trình du lịch theo mẫu tiếng Nhật/Anh)', 'Xác nhận đặt vé máy bay và khách sạn'],
+      personal: [
+        'Hộ chiếu bản gốc còn thời hạn phù hợp',
+        'Tờ khai theo mẫu hiện hành và ảnh thẻ chuẩn kích thước',
+        'Giấy tờ tùy thân, thông tin cư trú theo yêu cầu địa bàn nộp',
+      ],
+      employment: [
+        'Hợp đồng lao động hoặc giấy xác nhận công tác',
+        'Sao kê tài khoản nhận lương trong các tháng gần nhất',
+        'Giấy phép đăng ký kinh doanh (đối với chủ doanh nghiệp)',
+      ],
+      financial: [
+        'Giấy xác nhận số dư hoặc sao kê tài khoản ngân hàng thể hiện khả năng chi trả',
+        'Chứng từ thu nhập hoặc tài sản bổ sung (nếu cần giải trình)',
+      ],
+      trip: [
+        'Lịch trình lưu trú chi tiết theo mẫu tham khảo',
+        'Xác nhận đặt vé máy bay và chỗ ở dự kiến',
+      ],
     },
-    highlights: ['VISA5S là đối tác đại lý được chỉ định nộp hồ sơ ủy thác', 'Không cần trực tiếp lên Đại sứ quán xếp hàng', 'Hỗ trợ giải trình tài chính và dịch thuật chuẩn tiếng Nhật'],
+    preparationNotes: [
+      'Yêu cầu giấy tờ có thể khác nhau tùy theo mục đích chuyến đi và địa bàn tiếp nhận (Hà Nội / TP.HCM / Đà Nẵng).',
+      'Cần đối chiếu kỹ lịch trình chuyến đi với thời gian nghỉ phép và khả năng tài chính.',
+      'Khách hàng cần kiểm tra thông tin cập nhật mới nhất về đơn vị tiếp nhận được chỉ định trên website chính thức của Đại sứ quán Nhật Bản.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn thông tin và rà soát hồ sơ độc lập của VISA5S được thông báo rõ trước khi thực hiện.',
+      officialFee: 'Lệ phí thị thực quy định bởi cơ quan đại diện ngoại giao Nhật Bản.',
+      thirdPartyFee: 'Chi phí dịch thuật, công chứng hoặc phí tiếp nhận của đơn vị được chỉ định (nếu có).',
+    },
+    officialSources: [
+      { label: 'Bộ Ngoại giao Nhật Bản (MOFA)', url: 'https://www.mofa.go.jp/j_info/visit/visa/index.html' },
+      { label: 'Đại sứ quán Nhật Bản tại Việt Nam', url: 'https://www.vn.emb-japan.go.jp/' },
+    ],
   },
   {
     id: 'trung-quoc',
-    name: 'Thị thực Trung Quốc',
+    name: 'Trung Quốc',
     continent: 'asia',
     continentLabel: 'CHÂU Á',
-    badgeTime: 'Thời gian: 4 - 6 ngày (Có gói hỏa tốc)',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC-uyDIcJzYbzvn01iLt-C6ZMJyk3eQCzxXJKoCpdDkbozcUolWZNC1aTHcyPfxGYOcXpyofxJvE3kAaWSDs-TOb1V3NwngTdKXlndUOBcU5Z0AXw6vQL9x7wtO_B8eHkMlkAVq83LzSk3TWD4vIxlidZ9SILNfiFggYp0vPkjAro7uZqRVbrVD91WhL5_iCaxLo0wvSCjy4ingOYyYB6KzBwPkC0Vd-ZKFrF3RGxvSG-7jcV4XaH4g',
-    shortDesc: 'Thị thực Thương mại diện M, Thị thực Du lịch diện L, tham dự hội chợ triển lãm Canton Fair và công tác khẩn cấp.',
-    tags: ['Hỗ trợ thư mời', 'Nhanh chóng'],
-    visaTypes: ['Hồ sơ Du lịch diện L (1 lần / 2 lần)', 'Hồ sơ Thương mại diện M (Hội chợ, đàm phán)', 'Hồ sơ Thăm thân diện Q1 / Q2', 'Thị thực 6 tháng nhiều lần / 1 năm nhiều lần'],
-    processingTime: '4 - 6 ngày làm việc (Gói khẩn 2-3 ngày)',
-    validity: '3 tháng (1 lần/2 lần) hoặc 1 năm nhiều lần',
-    stayDuration: '30 ngày/lần',
-    successRate: '99.2%',
-    difficulty: 'Dễ',
+    badgeInfo: 'Tham khảo: Du lịch (L), Thương mại (M)',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC-uyDIcJzYbzvn01iLt-C6ZMJyk3eQCzxXJKoCpdDkbozcUolWZNC1aTHcyPfxGYOcXpyofxJvE3kAaWSDs-TOb1V3NwngTdKXlndUOBcU5Z0AXw6vQL9x7wtO_B8eHkMlkAVq83LzSk3TWD4vIxlidZ9SILNfiFggYp0vPkjAro7uZqRVbrVD91WhL5_iCaxLo0wvSCjy4ingOYyYB6KzBwPkC0Vd-ZKFrF3RGxvSG-7jcV4XaH4g',
+    shortDesc:
+      'Tư vấn chuẩn bị thông tin tờ khai và các nhóm giấy tờ cần lưu ý cho chuyến đi du lịch, hội chợ, thương mại hoặc thăm thân tại Trung Quốc.',
+    tags: ['Rà soát tờ khai', 'Chuẩn bị giấy tờ'],
+    purposes: ['Du lịch (L)', 'Thương mại / Hội chợ (M)', 'Thăm thân (Q1/Q2)'],
+    visaTypes: [
+      'Diện Du lịch L (tham khảo)',
+      'Diện Thương mại M (tham khảo)',
+      'Diện Thăm thân Q1 / Q2 (tham khảo)',
+    ],
+    processingTimeRef: 'Theo thời gian xử lý công bố của Trung tâm Dịch vụ Thị thực / Lãnh sự',
+    validityRef: 'Tùy diện thị thực và quyết định của cơ quan lãnh sự',
+    stayDurationRef: 'Theo thời hạn ghi trên thị thực được cấp (nếu được chấp thuận)',
+    preparationLevel: 'Cơ bản',
     requirements: {
-      personal: ['Hộ chiếu gốc còn hạn trên 6 tháng và trang trống', 'Ảnh 3.3x4.8cm nền trắng áo màu sẫm', 'Tờ khai xin thị thực trực tuyến CVASC'],
-      employment: ['Quyết định cử đi công tác (đối với diện M)', 'Thư mời từ đối tác bên phía Trung Quốc', 'Bản sao CCCD và Hộ chiếu người mời'],
-      financial: ['Xác nhận số dư tài khoản ngân hàng từ 50 - 100 triệu VND', 'Sao kê tài khoản 3 tháng gần nhất'],
-      trip: ['Xác nhận đặt vé máy bay khứ hồi và phòng khách sạn', 'Lịch trình công tác hoặc du lịch'],
+      personal: [
+        'Hộ chiếu bản gốc còn hạn và còn trang trống theo quy định',
+        'Ảnh chân dung đúng chuẩn kích thước và nền trắng',
+        'Tờ khai thông tin trực tuyến theo hướng dẫn hiện hành',
+      ],
+      employment: [
+        'Quyết định cử đi công tác hoặc giấy xác nhận công việc (đối với diện thương mại)',
+        'Thư mời từ đối tác hoặc người thân tại Trung Quốc (nếu thuộc diện cần thư mời)',
+      ],
+      financial: [
+        'Xác nhận số dư hoặc sao kê tài khoản ngân hàng (tùy trường hợp yêu cầu)',
+      ],
+      trip: [
+        'Thông tin lịch trình di chuyển, đặt vé khứ hồi và khách sạn dự kiến',
+      ],
     },
-    highlights: ['Có suất nộp hồ sơ hỏa tốc nhận kết quả trong 48 - 72 giờ', 'Hỗ trợ soạn thảo mẫu thư mời công tác đúng chuẩn Lãnh sự', 'Đặt lịch hẹn lăn tay ưu tiên không phải chờ đợi lâu'],
+    preparationNotes: [
+      'Thông tin trên tờ khai trực tuyến cần trùng khớp hoàn toàn với hộ chiếu và thư mời (nếu có).',
+      'Quy định về lấy dấu vân tay hoặc miễn lấy dấu vân tay phụ thuộc vào thông báo từng thời điểm của cơ quan lãnh sự.',
+      'Khách hàng tự kiểm tra biểu phí và lịch hẹn trực tiếp tại cổng thông tin của trung tâm tiếp nhận chính thức.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn thông tin và rà soát giấy tờ của VISA5S được thỏa thuận trước.',
+      officialFee: 'Lệ phí thị thực và phí trung tâm tiếp nhận chính thức theo quy định hiện hành.',
+      thirdPartyFee: 'Phí chụp ảnh, dịch thuật công chứng hoặc phát sinh bên thứ ba (nếu có).',
+    },
+    officialSources: [
+      { label: 'Cổng Trung tâm Dịch vụ Thị thực Trung Quốc (CVASC)', url: 'https://www.visaforchina.cn/' },
+    ],
   },
   {
     id: 'uc',
-    name: 'Thị thực Úc (Australia)',
+    name: 'Úc (Australia)',
     continent: 'australia',
     continentLabel: 'CHÂU ÚC',
-    badgeTime: 'Thời hạn: Lên tới 3 năm nhiều lần',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBDL_8D6m12yiIE45p_6C33XtOg0y5Yrz8YBq7lV-i7izS_PgEcakLERkz8tYxVc672PDbEZ-dhJj3bCjBAglF6iBVRje5jCjZW53UXsZdoUTCwhehSd53wLKX4ncqC36NeYSyXD6pFTSaTi0vRtADSQ2kHRO7fJ7FXtTYxegDcXJyyjvR2ojmpnrTLZkiXjbxijWkWiR2udaLsMk5DPl_HFuZKcMyLjedN2eGuHbTYhfa4O-z1TfXM',
-    shortDesc: 'Thị thực Subclass 600 du lịch, công tác hoặc thăm người thân. Nộp E-visa trực tuyến, không giữ hộ chiếu gốc.',
-    tags: ['Nộp hồ sơ trực tuyến', 'Thời hạn dài'],
-    visaTypes: ['Visitor (Subclass 600) - Tourist stream', 'Business Visitor stream (Công tác, hội thảo)', 'Sponsored Family stream (Người thân bảo lãnh)'],
-    processingTime: '15 - 25 ngày làm việc',
-    validity: '1 năm hoặc lên đến 3 năm nhiều lần',
-    stayDuration: 'Tối đa 3 tháng/lần nhập cảnh',
-    successRate: '98%',
-    difficulty: 'Cần chuẩn bị kỹ',
+    badgeInfo: 'Tham khảo: Visitor (Subclass 600)',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBDL_8D6m12yiIE45p_6C33XtOg0y5Yrz8YBq7lV-i7izS_PgEcakLERkz8tYxVc672PDbEZ-dhJj3bCjBAglF6iBVRje5jCjZW53UXsZdoUTCwhehSd53wLKX4ncqC36NeYSyXD6pFTSaTi0vRtADSQ2kHRO7fJ7FXtTYxegDcXJyyjvR2ojmpnrTLZkiXjbxijWkWiR2udaLsMk5DPl_HFuZKcMyLjedN2eGuHbTYhfa4O-z1TfXM',
+    shortDesc:
+      'Tư vấn thông tin tham khảo về hồ sơ Visitor (Subclass 600) và hướng dẫn sắp xếp chứng từ nhân thân, công việc, tài chính logic.',
+    tags: ['Đánh giá sơ bộ', 'Nguồn chính thức'],
+    purposes: ['Du lịch (Tourist)', 'Công tác (Business Visitor)', 'Thăm người thân'],
+    visaTypes: [
+      'Visitor (Subclass 600) - Tourist stream (tham khảo)',
+      'Visitor (Subclass 600) - Business Visitor stream (tham khảo)',
+      'Visitor (Subclass 600) - Sponsored Family stream (tham khảo)',
+    ],
+    processingTimeRef: 'Thay đổi theo từng thời điểm, xem công cụ ước tính của Bộ Nội vụ Úc',
+    validityRef: 'Do Bộ Nội vụ Úc (Department of Home Affairs) quyết định',
+    stayDurationRef: 'Theo điều kiện cấp phép của cơ quan có thẩm quyền Úc',
+    preparationLevel: 'Cần chuẩn bị kỹ',
     requirements: {
-      personal: ['Bản scan màu toàn bộ trang hộ chiếu có dấu thị thực', 'Giấy khai sinh, CCCD, sổ hộ khẩu dịch thuật công chứng', 'Tờ khai chi tiết thân nhân Form 54'],
-      employment: ['Hợp đồng lao động, bảng lương 6 tháng, đơn xin nghỉ phép', 'Đối với chủ doanh nghiệp: Giấy phép kinh doanh, tờ khai thuế VAT', 'Đối với hưu trí: Quyết định nghỉ hưu, sổ nhận lương hưu'],
-      financial: ['Sao kê tài khoản ngân hàng giao dịch 6 tháng gần nhất', 'Xác nhận số dư tiết kiệm từ 200 triệu VND trở lên', 'Giấy chứng nhận quyền sở hữu nhà đất, xe hơi, cổ phiếu'],
-      trip: ['Bản tường trình kế hoạch du lịch chi tiết', 'Bảo hiểm du lịch quốc tế quyền lợi tối thiểu 50,000 USD'],
+      personal: [
+        'Bản sao/scan hộ chiếu, giấy khai sinh, CCCD và giấy tờ hộ tịch liên quan',
+        'Thông tin chi tiết về thành viên gia đình theo yêu cầu khai báo',
+      ],
+      employment: [
+        'Hợp đồng lao động, bảng lương, xác nhận nghỉ phép hoặc hồ sơ doanh nghiệp',
+        'Giấy tờ hưu trí (nếu đã nghỉ hưu)',
+      ],
+      financial: [
+        'Sao kê tài khoản ngân hàng, xác nhận số dư tiết kiệm',
+        'Chứng từ chứng minh nguồn thu nhập và tài sản hợp pháp',
+      ],
+      trip: [
+        'Kế hoạch chuyến đi chi tiết và thư mời (nếu đi công tác hoặc thăm thân)',
+      ],
     },
-    highlights: ['Nộp hồ sơ 100% online trên ImmiAccount của Bộ Nội vụ Úc', 'Khách hàng không bị giữ hộ chiếu gốc trong suốt thời gian xét duyệt', 'Hỗ trợ đặt lịch lấy sinh trắc học VFS Global nhanh nhất'],
+    preparationNotes: [
+      'Mọi tài liệu tiếng Việt thường cần kèm bản dịch tiếng Anh theo quy định.',
+      'Thông tin về công việc, thu nhập và kế hoạch chuyến đi cần minh bạch, có chứng từ đối chiếu.',
+      'Khách hàng có thể tự tạo tài khoản và tìm hiểu biểu phí mới nhất trực tiếp trên website của Bộ Nội vụ Úc.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn, hướng dẫn sắp xếp và rà soát thông tin hồ sơ của VISA5S.',
+      officialFee: 'Lệ phí nộp đơn (Visa Application Charge) và phí sinh trắc học theo quy định của Chính phủ Úc.',
+      thirdPartyFee: 'Phí dịch thuật công chứng tiếng Anh, bảo hiểm du lịch (nếu có).',
+    },
+    officialSources: [
+      { label: 'Bộ Nội vụ Úc (Department of Home Affairs)', url: 'https://immi.homeaffairs.gov.au/' },
+    ],
   },
   {
     id: 'my',
-    name: 'Thị thực Mỹ (Hoa Kỳ)',
+    name: 'Mỹ (Hoa Kỳ)',
     continent: 'america',
     continentLabel: 'CHÂU MỸ',
-    badgeTime: 'Luyện phỏng vấn 1-kèm-1',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4iRmFDApOjRCBS9-FR1agtVjxDpx5TtNbD8jfnrUJKtWaV1onfAJf_T8BdRz8Dq3Bc3Fl51wVph5phhHCkFfFTgeajTCHcSIgaml0jdCQzVUv2uBDOB5m1_lUqZ0HshPXiz3GlIs9XY2Bw4W7X8YSyEjIXMd62bc2OFnXIzfrwB-F880M_KlD5hgH9C0aBQFyvrYj04VLh2Y1tY-TtSzbmr7ykTQbO7rUIrXHrv5nNbUV-uDscZMX',
-    shortDesc: 'Hồ sơ diện B1/B2 du lịch, hội nghị, công tác. Khai form DS-160 chuẩn xác và rèn luyện kỹ năng phỏng vấn thực chiến.',
-    tags: ['DS-160 chuẩn', 'Lấy lịch hẹn nhanh'],
-    visaTypes: ['Diện B1 (Công tác, hội thảo, thương thảo)', 'Diện B2 (Du lịch, khám chữa bệnh, thăm người thân)', 'Diện B1/B2 Kết hợp (Phổ biến nhất)', 'Gia hạn thị thực Mỹ qua đường bưu điện'],
-    processingTime: 'Có kết quả ngay sau buổi phỏng vấn (Hộ chiếu gửi về sau 2-3 ngày)',
-    validity: '1 năm nhiều lần (Gia hạn liên tục không cần phỏng vấn lại)',
-    stayDuration: 'Lãnh sự/Hải quan cấp tối đa 6 tháng/lần',
-    successRate: '96.8%',
-    difficulty: 'Phỏng vấn kỹ',
+    badgeInfo: 'Tham khảo: Diện không định cư B1/B2',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC4iRmFDApOjRCBS9-FR1agtVjxDpx5TtNbD8jfnrUJKtWaV1onfAJf_T8BdRz8Dq3Bc3Fl51wVph5phhHCkFfFTgeajTCHcSIgaml0jdCQzVUv2uBDOB5m1_lUqZ0HshPXiz3GlIs9XY2Bw4W7X8YSyEjIXMd62bc2OFnXIzfrwB-F880M_KlD5hgH9C0aBQFyvrYj04VLh2Y1tY-TtSzbmr7ykTQbO7rUIrXHrv5nNbUV-uDscZMX',
+    shortDesc:
+      'Tư vấn thông tin chuẩn bị khai báo hồ sơ B1/B2 tham khảo, rà soát tính nhất quán thông tin cá nhân và giải thích quy trình phỏng vấn chính thức.',
+    tags: ['Rà soát thông tin', 'Giải thích quy trình'],
+    purposes: ['Công tác / Hội nghị (B1)', 'Du lịch / Thăm thân (B2)', 'Kết hợp B1/B2'],
+    visaTypes: [
+      'Thị thực không định cư B1 (Công tác - tham khảo)',
+      'Thị thực không định cư B2 (Du lịch, thăm thân - tham khảo)',
+      'Gia hạn qua đường bưu điện (nếu đủ điều kiện theo quy định)',
+    ],
+    processingTimeRef: 'Phụ thuộc lịch hẹn phỏng vấn và quy trình xử lý của Lãnh sự quán Hoa Kỳ',
+    validityRef: 'Do viên chức lãnh sự Hoa Kỳ quyết định',
+    stayDurationRef: 'Do cơ quan Hải quan và Bảo vệ Biên giới Hoa Kỳ quyết định khi nhập cảnh',
+    preparationLevel: 'Có phỏng vấn',
     requirements: {
-      personal: ['Hộ chiếu còn hạn trên 6 tháng tính từ ngày dự kiến rời Mỹ', 'Trang xác nhận tờ khai trực tuyến DS-160 có mã vạch', 'Giấy hẹn phỏng vấn đóng lệ phí lãnh sự (185 USD)', '1 ảnh thẻ chuẩn Mỹ 5x5cm chụp không quá 6 tháng (tai rõ, không đeo kính)'],
-      employment: ['Hồ sơ chứng minh công việc vững chắc tại Việt Nam', 'Hợp đồng, bảng lương, quyết định cử đi công tác hoặc giấy phép ĐKKD'],
-      financial: ['Sổ tiết kiệm, sao kê tài khoản ngân hàng, giấy tờ nhà đất để chứng minh khả năng chi trả và ràng buộc'],
-      trip: ['Lịch trình dự kiến tại Mỹ, thông tin người thân hoặc đối tác liên hệ'],
+      personal: [
+        'Hộ chiếu còn hiệu lực theo quy định',
+        'Thông tin để hoàn thành tờ khai DS-160 chính xác, trung thực',
+        'Ảnh thẻ theo đúng quy chuẩn kỹ thuật của Bộ Ngoại giao Hoa Kỳ',
+      ],
+      employment: [
+        'Thông tin và chứng từ chứng minh công việc, chức vụ, thu nhập hiện tại',
+      ],
+      financial: [
+        'Thông tin về nguồn tài chính chi trả cho chuyến đi và sự ràng buộc tại Việt Nam',
+      ],
+      trip: [
+        'Mục đích chuyến đi, thời gian dự kiến và thông tin liên hệ tại Hoa Kỳ (nếu có)',
+      ],
     },
-    highlights: ['Luyện phỏng vấn 1-kèm-1 cùng chuyên viên kỳ cựu: giải mã câu hỏi khó, thái độ tự tin', 'Khai form DS-160 chuẩn chỉnh từng câu chữ, logic không mâu thuẫn', 'Hỗ trợ săn lịch hẹn phỏng vấn sớm theo nhu cầu chuyến đi'],
+    preparationNotes: [
+      'Độ chính xác và tính trung thực của thông tin trên tờ khai DS-160 là yếu tố rất quan trọng.',
+      'Lịch hẹn phỏng vấn và thời gian chờ phụ thuộc hoàn toàn vào hệ thống chính thức của cơ quan lãnh sự Hoa Kỳ.',
+      'VISA5S chỉ hỗ trợ tư vấn thông tin và rà soát tính nhất quán; không can thiệp vào lịch hẹn hay kết quả phỏng vấn.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn thông tin và rà soát hồ sơ độc lập của VISA5S.',
+      officialFee: 'Lệ phí xét đơn không hoàn lại (MRV fee) theo biểu phí công bố trên cổng thông tin chính thức của Hoa Kỳ.',
+      thirdPartyFee: 'Phí chụp ảnh chuẩn quy định hoặc chuyển phát giấy tờ (nếu có).',
+    },
+    officialSources: [
+      { label: 'Bộ Ngoại giao Hoa Kỳ (U.S. Visas)', url: 'https://travel.state.gov/content/travel/en/us-visas.html' },
+      { label: 'Phái bộ Ngoại giao Hoa Kỳ tại Việt Nam', url: 'https://vn.usembassy.gov/visas/' },
+    ],
   },
   {
     id: 'schengen',
-    name: 'Thị thực Châu Âu (Schengen)',
+    name: 'Châu Âu (Schengen)',
     continent: 'europe',
     continentLabel: 'CHÂU ÂU',
-    badgeTime: 'Tự do đi lại 29 quốc gia',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBhf6CcIAyaGRuRxkVPjdp8a9QnC-DsCcrCuBCEOZKp4t3Nwm7ZUlLWqAqg4D91bcrHClXzFJAJ-wDaSEkFPFXNoVoMzqhJPMJtUj9lnMC9aCtZwr8iBb34clgAGRJIyUvLGjrAevZbun9wwR3tJ0ARF3_YCuU8-NTndCtx7Y_pUDLiS-ZwB9pHRrROtKyvSZzzhS6Z_YPLeUjuxGADgnZCp9w1sS1oOKOtRNSRdGYebP3Txn_m1WEa',
-    shortDesc: 'Nộp qua Lãnh sự quán Pháp, Đức, Ý, Hà Lan... Lập lịch trình du lịch logic và giải trình công việc chặt chẽ.',
-    tags: ['Lịch trình logic', 'Bảo hiểm quốc tế'],
-    visaTypes: ['Hồ sơ Du lịch tự túc Schengen Type C', 'Hồ sơ Công tác / Thương mại', 'Hồ sơ Thăm thân nhân (Có thư bảo lãnh)', 'Thị thực Nhiều lần (Multiple 1 - 5 năm)'],
-    processingTime: '15 - 20 ngày làm việc',
-    validity: 'Theo lịch trình hoặc lên tới 90 ngày trong chu kỳ 180 ngày',
-    stayDuration: 'Tối đa 90 ngày',
-    successRate: '97.5%',
-    difficulty: 'Cần chuẩn bị kỹ',
+    badgeInfo: 'Tham khảo: Thị thực ngắn hạn Type C',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBhf6CcIAyaGRuRxkVPjdp8a9QnC-DsCcrCuBCEOZKp4t3Nwm7ZUlLWqAqg4D91bcrHClXzFJAJ-wDaSEkFPFXNoVoMzqhJPMJtUj9lnMC9aCtZwr8iBb34clgAGRJIyUvLGjrAevZbun9wwR3tJ0ARF3_YCuU8-NTndCtx7Y_pUDLiS-ZwB9pHRrROtKyvSZzzhS6Z_YPLeUjuxGADgnZCp9w1sS1oOKOtRNSRdGYebP3Txn_m1WEa',
+    shortDesc:
+      'Hướng dẫn tìm hiểu quy định xác định quốc gia tiếp nhận chính, chuẩn bị lịch trình, bảo hiểm và danh mục chứng từ khối Schengen.',
+    tags: ['Lịch trình tham khảo', 'Nguồn chính thức'],
+    purposes: ['Du lịch ngắn hạn', 'Công tác / Hội thảo', 'Thăm thân nhân'],
+    visaTypes: [
+      'Thị thực ngắn hạn Schengen Type C (tham khảo)',
+      'Diện Công tác / Thương mại (tham khảo)',
+      'Diện Thăm thân có giấy bảo lãnh (tham khảo)',
+    ],
+    processingTimeRef: 'Theo quy định xét duyệt của Đại sứ quán / Lãnh sự quán nước thành viên tiếp nhận',
+    validityRef: 'Do cơ quan lãnh sự quốc gia thành viên Schengen cấp phép',
+    stayDurationRef: 'Theo quy định khối Schengen và thời hạn ghi trên thị thực (nếu được cấp)',
+    preparationLevel: 'Cần chuẩn bị kỹ',
     requirements: {
-      personal: ['Hộ chiếu gốc còn hạn trên 3 tháng kể từ ngày rời Schengen', '2 ảnh 3.5x4.5cm nền trắng chuẩn sinh trắc học', 'CCCD và trích lục tư pháp/hôn nhân'],
-      employment: ['Hợp đồng lao động, sao kê lương 6 tháng, đơn xin nghỉ phép', 'Xác nhận quá trình đóng BHXH (App VssID chụp màn hình)'],
-      financial: ['Sao kê tài khoản ngân hàng số dư tối thiểu 200 triệu VND', 'Sổ tiết kiệm, giấy tờ sở hữu tài sản cố định'],
-      trip: ['Lịch trình chi tiết từng ngày di chuyển giữa các nước Schengen', 'Vé máy bay khứ hồi và booking phòng khách sạn toàn chặng', 'Bảo hiểm du lịch quốc tế mức bồi thường tối thiểu 30,000 EUR'],
+      personal: [
+        'Hộ chiếu còn hạn theo quy định sau ngày rời khối Schengen',
+        'Ảnh thẻ chuẩn sinh trắc học, giấy tờ nhân thân và hộ tịch',
+      ],
+      employment: [
+        'Hợp đồng lao động, sao kê lương, đơn xin nghỉ phép hoặc hồ sơ doanh nghiệp',
+        'Thông tin đóng bảo hiểm xã hội (nếu được yêu cầu)',
+      ],
+      financial: [
+        'Sao kê tài khoản ngân hàng, xác nhận số dư và chứng từ tài sản hợp pháp',
+      ],
+      trip: [
+        'Lịch trình di chuyển chi tiết giữa các quốc gia trong khối',
+        'Thông tin đặt vé khứ hồi, lưu trú và bảo hiểm du lịch quốc tế đúng hạn mức quy định',
+      ],
     },
-    highlights: ['Lập lộ trình chọn đúng Đại sứ quán thụ lý có tỷ lệ xét duyệt cao nhất', 'Hỗ trợ hoàn tất bảo hiểm quốc tế chuẩn quy định khối Schengen', 'Xây dựng đơn giải trình hành trình (Cover Letter) tăng khả năng đạt kết quả'],
+    preparationNotes: [
+      'Cần xác định đúng quốc gia có thẩm quyền tiếp nhận (nơi lưu trú chính hoặc điểm nhập cảnh đầu tiên theo quy tắc Schengen).',
+      'Bảo hiểm du lịch quốc tế phải đáp ứng mức chi trả y tế tối thiểu theo quy định của khối.',
+      'Khách hàng cần kiểm tra checklist chi tiết trên website Đại sứ quán của quốc gia thành viên dự định nộp.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn thông tin, rà soát lịch trình và danh mục hồ sơ của VISA5S.',
+      officialFee: 'Lệ phí thị thực Schengen và phí dịch vụ trung tâm tiếp nhận chính thức (nếu áp dụng).',
+      thirdPartyFee: 'Phí bảo hiểm du lịch quốc tế, dịch thuật công chứng tiếng Anh/ngôn ngữ đích.',
+    },
+    officialSources: [
+      {
+        label: 'Ủy ban Châu Âu - Chính sách Thị thực Schengen',
+        url: 'https://home-affairs.ec.europa.eu/policies/schengen-borders-and-visa/visa-policy_en',
+      },
+    ],
   },
   {
     id: 'canada',
-    name: 'Thị thực Canada',
+    name: 'Canada',
     continent: 'america',
     continentLabel: 'CHÂU MỸ',
-    badgeTime: 'Thời hạn theo hạn hộ chiếu (tới 10 năm)',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuARjmEQb6PfnIdUFnUdnd0cm2Ajszg7qwbHgXFVmfvBl4Zg2V1yNXOQQCj4FmRWdNEJJTwNOyo9D0lKYChlc4PaSh_mEWkHaYmBIkSCCoQMnjg5ruWMbLDmVL6nFJjYy8n5vHbkdJ41JH5ShQixioYT2Jgjz1_PxImsMIQV_0JC_dwKmXesEkzqniGlHmyc3onhwCBWPIhR-FHWgFYruYhlGhR2BO9E6KyEEWKBnoWqVL--lszMjaUo',
-    shortDesc: 'Hồ sơ diện V-1 du lịch, công tác, thăm con cái du học. Hỗ trợ xây dựng hồ sơ tài chính và mối quan hệ ràng buộc tại Việt Nam.',
-    tags: ['Thời hạn 10 năm', 'Tài chính chuyên sâu'],
-    visaTypes: ['Visitor (V-1) Du lịch tự túc', 'Super Visa cho Cha Mẹ/Ông Bà (Hạn tới 10 năm)', 'Business Visitor (Công tác, thương mại)', 'Hồ sơ du học / lao động'],
-    processingTime: '20 - 35 ngày làm việc',
-    validity: 'Lên tới 10 năm (hết hạn cùng hộ chiếu)',
-    stayDuration: 'Tối đa 6 tháng/lần nhập cảnh',
-    successRate: '95.5%',
-    difficulty: 'Cần chuẩn bị kỹ',
+    badgeInfo: 'Tham khảo: Visitor / Super Visa',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuARjmEQb6PfnIdUFnUdnd0cm2Ajszg7qwbHgXFVmfvBl4Zg2V1yNXOQQCj4FmRWdNEJJTwNOyo9D0lKYChlc4PaSh_mEWkHaYmBIkSCCoQMnjg5ruWMbLDmVL6nFJjYy8n5vHbkdJ41JH5ShQixioYT2Jgjz1_PxImsMIQV_0JC_dwKmXesEkzqniGlHmyc3onhwCBWPIhR-FHWgFYruYhlGhR2BO9E6KyEEWKBnoWqVL--lszMjaUo',
+    shortDesc:
+      'Tư vấn thông tin chuẩn bị hồ sơ du lịch, công tác hoặc thăm thân tại Canada theo danh mục tham khảo của IRCC.',
+    tags: ['Hướng dẫn chứng từ', 'Thông tin IRCC'],
+    purposes: ['Du lịch tự túc', 'Công tác ngắn hạn', 'Thăm thân nhân'],
+    visaTypes: [
+      'Visitor Visa (tham khảo)',
+      'Super Visa cho Cha Mẹ / Ông Bà (tham khảo)',
+      'Business Visitor (tham khảo)',
+    ],
+    processingTimeRef: 'Thay đổi liên tục, tra cứu trực tiếp trên công cụ thời gian xử lý của IRCC',
+    validityRef: 'Do cơ quan Di trú, Tị nạn và Quốc tịch Canada (IRCC) quyết định',
+    stayDurationRef: 'Do cơ quan nhập cảnh Canada quyết định theo từng lần nhập cảnh',
+    preparationLevel: 'Cần chuẩn bị kỹ',
     requirements: {
-      personal: ['Hộ chiếu gốc còn hạn trên 6 tháng và các hộ chiếu cũ có thị thực', 'Ảnh thẻ 3.5x4.5cm định dạng kỹ thuật số', 'Tờ khai gia đình Family Information Form IMM5645'],
-      employment: ['Hợp đồng lao động, giấy xác nhận chức vụ và mức lương', 'Biên lai thuế thu nhập cá nhân hoặc doanh nghiệp'],
-      financial: ['Hồ sơ chứng minh tài chính toàn diện: sổ tiết kiệm, sao kê dòng tiền 6 tháng, tài sản nhà đất, cổ phần doanh nghiệp'],
-      trip: ['Mục đích chuyến đi rõ ràng, thư mời (nếu thăm thân/công tác) và lịch trình lưu trú'],
+      personal: [
+        'Hộ chiếu còn hạn và bản sao các trang có dấu xuất nhập cảnh trước đây',
+        'Thông tin gia đình và các biểu mẫu khai báo theo quy định của IRCC',
+      ],
+      employment: [
+        'Chứng từ công việc, thu nhập hoặc hồ sơ đăng ký kinh doanh và nghĩa vụ thuế',
+      ],
+      financial: [
+        'Sao kê tài khoản ngân hàng, chứng từ tiết kiệm và tài sản hợp pháp tại Việt Nam',
+      ],
+      trip: [
+        'Mục đích chuyến đi, lịch trình dự kiến và thư mời (nếu thăm thân hoặc công tác)',
+      ],
     },
-    highlights: ['Nộp trực tuyến qua cổng IRCC mới của Chính phủ Canada', 'Thời hạn thị thực cấp dài bằng thời hạn còn lại của hộ chiếu (tối đa 10 năm)', 'Chuyên sâu giải quyết các bộ hồ sơ tài chính phức tạp, dòng tiền tự do'],
+    preparationNotes: [
+      'Hồ sơ cần thể hiện rõ nguồn tài chính minh bạch và các mối liên hệ ràng buộc tại Việt Nam.',
+      'Việc cung cấp sinh trắc học (biometrics) được thực hiện theo thư yêu cầu và lịch hẹn tại đơn vị tiếp nhận chính thức.',
+      'Khách hàng có thể tự tìm hiểu quy trình và nộp trực tiếp thông qua cổng thông tin Chính phủ Canada.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn thông tin và hỗ trợ rà soát hồ sơ độc lập của VISA5S.',
+      officialFee: 'Lệ phí xét duyệt và phí sinh trắc học do Chính phủ Canada quy định.',
+      thirdPartyFee: 'Phí dịch thuật công chứng sang tiếng Anh/Pháp (nếu cần).',
+    },
+    officialSources: [
+      {
+        label: 'Chính phủ Canada (IRCC - Visit Canada)',
+        url: 'https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada.html',
+      },
+    ],
   },
   {
     id: 'anh-quoc',
-    name: 'Thị thực Anh Quốc (UK)',
+    name: 'Anh Quốc (UK)',
     continent: 'europe',
     continentLabel: 'CHÂU ÂU',
-    badgeTime: 'Standard Visitor',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBQY0ImeJejOLiQwNWXpJTTYwZDDoQdF8e8bW6rlMwWzFmYd520PKzqVAELB9DUUMT_zR2mmDRItRjIC3wFHfaxfnUYQUno0DWJgLlkac2QVvRHdtFeu_wJsVVlFD1-S-cAMqFNZy4kqfatVgH6wn11PDLK_cwVAFQ1j_QBHxo6JiK3rY7gat_VFWhoO-zlueijsTgKuCbS4nluZmcLg9voJP80Nvyixk3CcWNTFmQXi9YGEsuzNBuF',
-    shortDesc: 'Khai báo tài khoản UK Visas and Immigration (UKVI), kiểm tra chứng minh dòng tiền sao kê và đặt lịch lấy sinh trắc học VFS.',
-    tags: ['Chuẩn hóa sao kê', 'Hỗ trợ lịch lăn tay'],
-    visaTypes: ['Standard Visitor (6 tháng / 2 năm / 5 năm / 10 năm)', 'Business Visit', 'Family Visitor'],
-    processingTime: '15 - 20 ngày làm việc (Có hỗ trợ khẩn 5 ngày)',
-    validity: '6 tháng, 2 năm, 5 năm hoặc 10 năm',
-    stayDuration: 'Tối đa 180 ngày/năm',
-    successRate: '97%',
-    difficulty: 'Cần chuẩn bị kỹ',
+    badgeInfo: 'Tham khảo: Standard Visitor',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBQY0ImeJejOLiQwNWXpJTTYwZDDoQdF8e8bW6rlMwWzFmYd520PKzqVAELB9DUUMT_zR2mmDRItRjIC3wFHfaxfnUYQUno0DWJgLlkac2QVvRHdtFeu_wJsVVlFD1-S-cAMqFNZy4kqfatVgH6wn11PDLK_cwVAFQ1j_QBHxo6JiK3rY7gat_VFWhoO-zlueijsTgKuCbS4nluZmcLg9voJP80Nvyixk3CcWNTFmQXi9YGEsuzNBuF',
+    shortDesc:
+      'Tư vấn thông tin chuẩn bị chứng từ tài chính, sao kê thu nhập và giải thích quy trình tham khảo cho diện Standard Visitor Vương quốc Anh.',
+    tags: ['Rà soát chứng từ', 'Nguồn GOV.UK'],
+    purposes: ['Du lịch', 'Công tác ngắn hạn', 'Thăm gia đình'],
+    visaTypes: [
+      'Standard Visitor (6 tháng / dài hạn - tham khảo)',
+      'Business Visit (tham khảo)',
+      'Family Visit (tham khảo)',
+    ],
+    processingTimeRef: 'Theo thời gian xử lý công bố của Cơ quan Thị thực và Di trú Anh (UKVI)',
+    validityRef: 'Do UKVI quyết định dựa trên đơn đăng ký và thẩm định thực tế',
+    stayDurationRef: 'Theo quy định của Standard Visitor được cấp (nếu được chấp thuận)',
+    preparationLevel: 'Cần chuẩn bị kỹ',
     requirements: {
-      personal: ['Hộ chiếu gốc còn ít nhất 2 trang trống', 'Căn cước công dân gắn chip', 'Tờ khai hoàn thành trên trang UKVI'],
-      employment: ['Hợp đồng lao động, giấy xác nhận công tác', 'Sao kê tài khoản trả lương 6 tháng khớp với tiền gửi vào'],
-      financial: ['Sao kê tài khoản ngân hàng thể hiện nguồn gốc tài chính minh bạch', 'Sổ tiết kiệm và tài sản cố định'],
-      trip: ['Lịch trình dự kiến tại Vương quốc Anh, booking khách sạn và vé máy bay'],
+      personal: [
+        'Hộ chiếu còn trang trống và giấy tờ tùy thân hợp lệ',
+        'Thông tin khai báo theo biểu mẫu trực tuyến UKVI',
+      ],
+      employment: [
+        'Hợp đồng lao động, xác nhận công tác và sao kê tài khoản nhận lương',
+      ],
+      financial: [
+        'Sao kê tài khoản thể hiện dòng tiền, nguồn thu nhập và tiết kiệm rõ ràng',
+      ],
+      trip: [
+        'Kế hoạch dự kiến tại Anh, thông tin lưu trú và thư mời (nếu có)',
+      ],
     },
-    highlights: ['Kiểm tra chi tiết từng dòng sao kê ngân hàng tránh nghi vấn dòng tiền ảo', 'Dịch thuật công chứng chuẩn tư pháp toàn bộ giấy tờ sang tiếng Anh', 'Đặt lịch hẹn VFS Global VIP / giờ ngoài hành chính theo yêu cầu'],
+    preparationNotes: [
+      'Cần chú trọng tính khớp nhau giữa thu nhập khai báo và dòng tiền thể hiện trên sao kê ngân hàng.',
+      'Toàn bộ tài liệu không phải tiếng Anh cần kèm bản dịch đạt chuẩn theo hướng dẫn của UKVI.',
+      'Khách hàng tham khảo mức phí và quy định trực tiếp trên cổng GOV.UK.',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn và rà soát tính đầy đủ thông tin hồ sơ của VISA5S.',
+      officialFee: 'Lệ phí thị thực do Chính phủ Anh (UKVI) quy định trên GOV.UK.',
+      thirdPartyFee: 'Phí dịch thuật công chứng tiếng Anh và các dịch vụ tùy chọn tại trung tâm tiếp nhận (nếu chọn).',
+    },
+    officialSources: [
+      { label: 'Chính phủ Anh (GOV.UK - Standard Visitor)', url: 'https://www.gov.uk/standard-visitor' },
+    ],
   },
   {
     id: 'dai-loan',
-    name: 'Thị thực Đài Loan',
+    name: 'Đài Loan',
     continent: 'asia',
     continentLabel: 'CHÂU Á',
-    badgeTime: 'Thời gian: 3 - 5 ngày làm việc',
-    heroImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBANmPRWk-CRQf-VGBpQn74qFHRYpMdGlY5JJmH3vHXT4hejjCB6Kf7xqgVEYt8ZuLsFNj6jwoUaEYRWzrAkqLar2G0dXgMinUm3VUiRwJWPmRNZRvh9uZVbvPTonvUDqcSzh6cjWaKkm6c8Z1YQxabpImK1NHDnOq6_f5hcZjfnpPH0bxGNjBaHFh_mFjTV2YU5nCr7vyiBc7fr10jeEPhPaQU8J4QUjtZqtqH85UrJ9Th2EC0jTz2',
-    shortDesc: 'Thực hiện E-visa tiên tiến (khi có thị thực các nước phát triển), diện Quan Hồng theo đoàn và nộp trực tiếp tại Văn phòng Kinh tế Văn hóa Đài Bắc.',
-    tags: ['E-visa tiện lợi', 'Chi phí tiết kiệm'],
-    visaTypes: ['E-visa có điều kiện (Miễn thị thực nhập cảnh)', 'Quan Hồng (Theo đoàn du lịch)', 'Hồ sơ Du lịch tự túc dán', 'Hồ sơ Thương mại / Thăm thân'],
-    processingTime: 'E-visa trong ngày; Nộp dán 3 - 5 ngày làm việc',
-    validity: '3 tháng (1 lần hoặc nhiều lần)',
-    stayDuration: '14 ngày hoặc 30 ngày',
-    successRate: '99.5%',
-    difficulty: 'Dễ',
+    badgeInfo: 'Tham khảo: Du lịch, Công tác, Thăm thân',
+    heroImage:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBANmPRWk-CRQf-VGBpQn74qFHRYpMdGlY5JJmH3vHXT4hejjCB6Kf7xqgVEYt8ZuLsFNj6jwoUaEYRWzrAkqLar2G0dXgMinUm3VUiRwJWPmRNZRvh9uZVbvPTonvUDqcSzh6cjWaKkm6c8Z1YQxabpImK1NHDnOq6_f5hcZjfnpPH0bxGNjBaHFh_mFjTV2YU5nCr7vyiBc7fr10jeEPhPaQU8J4QUjtZqtqH85UrJ9Th2EC0jTz2',
+    shortDesc:
+      'Hướng dẫn kiểm tra thông tin điều kiện tham khảo về giấy tờ nhập cảnh Đài Loan, bao gồm diện thông thường và các trường hợp đặc thù.',
+    tags: ['Thông tin điều kiện', 'Chuẩn bị giấy tờ'],
+    purposes: ['Du lịch tự túc', 'Công tác / Thương mại', 'Thăm thân'],
+    visaTypes: [
+      'Chứng nhận cho phép nhập cảnh có điều kiện (tham khảo quy định Đài Loan)',
+      'Diện Du lịch / Công tác / Thăm thân thông thường (tham khảo)',
+    ],
+    processingTimeRef: 'Theo thông báo của Văn phòng Kinh tế và Văn hóa Đài Bắc',
+    validityRef: 'Do cơ quan có thẩm quyền Đài Loan quyết định',
+    stayDurationRef: 'Theo thời hạn được cấp phép khi nhập cảnh',
+    preparationLevel: 'Cơ bản',
     requirements: {
-      personal: ['Hộ chiếu gốc còn hạn trên 6 tháng', '2 ảnh thẻ 4x6cm nền trắng', 'CCCD và giấy tờ tùy thân'],
-      employment: ['Hợp đồng lao động & bảo hiểm y tế/xã hội', 'Giấy phép kinh doanh (nếu là chủ doanh nghiệp)'],
-      financial: ['Sổ tiết kiệm từ 100 triệu VND hoặc sao kê ngân hàng', 'Hoặc sở hữu thị thực còn/hết hạn của Mỹ, Canada, Nhật, Úc, Schengen'],
-      trip: ['Vé máy bay khứ hồi và lịch trình du lịch tại Đài Loan'],
+      personal: [
+        'Hộ chiếu bản gốc còn hạn theo quy định',
+        'Ảnh thẻ nền trắng đúng kích thước và giấy tờ tùy thân',
+      ],
+      employment: [
+        'Hợp đồng lao động, thông tin bảo hiểm xã hội hoặc giấy phép kinh doanh',
+      ],
+      financial: [
+        'Chứng từ chứng minh tài chính hoặc giấy tờ thuộc diện được miễn theo quy định hiện hành (nếu áp dụng)',
+      ],
+      trip: [
+        'Thông tin chuyến bay và lịch trình tham quan dự kiến',
+      ],
     },
-    highlights: ['Kiểm tra điều kiện E-visa miễn phí trong vòng 5 phút', 'Tư vấn chuyển đổi phương án nhanh chóng khi E-visa chưa đủ điều kiện', 'Chi phí tiết kiệm, thủ tục tối giản'],
+    preparationNotes: [
+      'Cần kiểm tra kỹ điều kiện áp dụng đối với từng loại giấy tờ trước khi tự đăng ký trực tuyến hoặc chuẩn bị hồ sơ giấy.',
+      'Thông tin khai báo sai lệch có thể ảnh hưởng đến việc nhập cảnh tại cửa khẩu.',
+      'Khách hàng có thể kiểm tra trực tiếp quy định mới nhất tại Cục Lãnh sự (BOCA).',
+    ],
+    feeTransparency: {
+      consultingFee: 'Phí dịch vụ tư vấn thông tin và hướng dẫn chuẩn bị giấy tờ của VISA5S.',
+      officialFee: 'Lệ phí do Văn phòng Kinh tế và Văn hóa Đài Bắc quy định (nếu thuộc diện nộp hồ sơ giấy có thu phí).',
+      thirdPartyFee: 'Phí dịch thuật hoặc chụp ảnh theo thực tế (nếu phát sinh).',
+    },
+    officialSources: [
+      { label: 'Cục Lãnh sự Đài Loan (BOCA)', url: 'https://www.boca.gov.tw/' },
+    ],
   },
 ];
 
@@ -236,69 +530,45 @@ export const VISA_PURPOSES = [
   {
     id: 'du-lich',
     title: 'Hồ Sơ Du Lịch',
-    subtitle: 'Khám phá cảnh quan thế giới, trải nghiệm kỳ nghỉ tuyệt vời cùng gia đình, bạn bè.',
+    subtitle: 'Tư vấn thông tin chuẩn bị giấy tờ nhân thân, công việc, tài chính và lịch trình cho chuyến đi tự túc hoặc gia đình.',
     icon: 'luggage',
     checklist: [
-      'Lịch trình bay & booking khách sạn',
-      'Hồ sơ công việc & đơn xin nghỉ phép',
-      'Xác nhận số dư & tài sản sở hữu',
-    ],
-    detailedRequirements: [
-      'Chứng minh công việc ổn định (Hợp đồng lao động, quyết định bổ nhiệm)',
-      'Chứng minh tài chính đủ khả năng chi trả cho toàn bộ chuyến đi',
-      'Lịch trình di chuyển hợp lý, rõ ràng từng ngày và khách sạn tương ứng',
-      'Mối quan hệ ràng buộc tại Việt Nam (Gia đình, nhà đất, tài sản)',
+      'Rà soát lịch trình & thông tin lưu trú dự kiến',
+      'Hướng dẫn sắp xếp chứng từ công việc & nghỉ phép',
+      'Kiểm tra tính nhất quán của chứng từ tài chính',
     ],
   },
   {
     id: 'cong-tac',
     title: 'Hồ Sơ Công Tác & TM',
-    subtitle: 'Ký kết hợp đồng, khảo sát thị trường, tham gia triển lãm hoặc công tác khẩn cấp.',
+    subtitle: 'Hướng dẫn các nhóm tài liệu doanh nghiệp, thư mời đối tác và chứng từ chứng minh mục đích thương mại.',
     icon: 'business_center',
     checklist: [
-      'Thư mời công tác từ đối tác quốc tế',
-      'Quyết định cử đi công tác từ công ty',
-      'Hợp đồng hợp tác kinh doanh hai bên',
-    ],
-    detailedRequirements: [
-      'Thư mời chính thức từ đối tác nước ngoài nêu rõ mục đích, thời gian và ai chi trả chi phí',
-      'Quyết định cử đi công tác của công ty tại Việt Nam',
-      'Hồ sơ pháp nhân doanh nghiệp (Giấy phép ĐKKD, sao kê tài khoản công ty, hóa đơn nộp thuế)',
-      'Chứng từ chứng minh quan hệ thương mại (Hợp đồng, email trao đổi, bill vận chuyển)',
+      'Kiểm tra nội dung thư mời công tác từ đối tác',
+      'Hướng dẫn hồ sơ pháp nhân & quyết định cử đi công tác',
+      'Đối chiếu thông tin lịch trình làm việc',
     ],
   },
   {
     id: 'tham-than',
     title: 'Hồ Sơ Thăm Thân Nhân',
-    subtitle: 'Đoàn tụ cùng người thân, cha mẹ, con cái đang sinh sống và làm việc ở nước ngoài.',
+    subtitle: 'Tư vấn danh mục giấy tờ chứng minh quan hệ gia đình, thư mời và giấy tờ tư cách lưu trú của người mời.',
     icon: 'diversity_1',
     checklist: [
-      'Thư bảo lãnh & mời thăm thân',
-      'Chứng minh mối quan hệ ruột thịt',
-      'Tư cách lưu trú của người mời',
-    ],
-    detailedRequirements: [
-      'Thư mời và đơn bảo lãnh tài chính (nếu người mời chi trả)',
-      'Bản sao hộ chiếu và thẻ cư trú hợp pháp của người mời tại nước sở tại',
-      'Chứng minh tài chính và thu nhập của người mời (Bảng lương, giấy nộp thuế)',
-      'Giấy tờ hộ tịch chứng minh quan hệ ruột thịt (Khai sinh, kết hôn, sổ hộ khẩu)',
+      'Kiểm tra thông tin thư mời / bảo lãnh tham khảo',
+      'Hướng dẫn giấy tờ hộ tịch chứng minh quan hệ',
+      'Rà soát giấy tờ nhân thân và tài chính liên quan',
     ],
   },
   {
     id: 'dinh-cu-du-hoc',
     title: 'Hồ Sơ Du Học & Đào Tạo',
-    subtitle: 'Chuẩn bị hành trang học thuật, chứng minh tài chính và lộ trình học tập logic.',
+    subtitle: 'Hỗ trợ giải thích quy trình và hướng dẫn sắp xếp giấy tờ học tập, tài chính theo yêu cầu từng quốc gia.',
     icon: 'school',
     checklist: [
-      'Thư chấp thuận nhập học (I-20, CAS...)',
-      'Chứng minh tài chính phụ huynh/người bảo trợ',
-      'Giải trình kế hoạch học tập logic',
-    ],
-    detailedRequirements: [
-      'Thư mời nhập học chính thức từ trường đại học/cao đẳng có mã số hợp lệ',
-      'Bằng cấp, bảng điểm các năm học gần nhất và chứng chỉ ngoại ngữ (IELTS/TOEFL)',
-      'Hồ sơ tài chính người bảo trợ: Sổ tiết kiệm dài hạn và dòng thu nhập ổn định',
-      'Kế hoạch học tập (Study Plan) giải trình lý do chọn ngành và cam kết sau tốt nghiệp',
+      'Kiểm tra thư chấp thuận nhập học tham khảo',
+      'Hướng dẫn hệ thống hóa chứng từ tài chính người bảo trợ',
+      'Gợi ý cấu trúc kế hoạch học tập rõ ràng',
     ],
   },
 ];
@@ -306,94 +576,90 @@ export const VISA_PURPOSES = [
 export const PROCESS_STEPS = [
   {
     step: '01',
-    title: 'Tiếp Nhận & Thẩm Định Sơ Bộ',
-    description: 'Tiếp nhận yêu cầu qua điện thoại, Zalo hoặc form đăng ký. Chuyên viên đánh giá điểm mạnh - yếu và đưa ra giải pháp xử lý miễn phí.',
-    duration: '15 - 30 phút',
-    actionText: 'Tư vấn sơ bộ',
+    title: 'Tiếp Nhận Nhu Cầu Tư Vấn',
+    description:
+      'Khách hàng cung cấp thông tin cơ bản về quốc gia dự định đến, mục đích chuyến đi và thời gian dự kiến.',
+    duration: 'Trao đổi ban đầu',
   },
   {
     step: '02',
-    title: 'Báo Giá & Chuẩn Bị Hồ Sơ',
-    description: 'Ký kết thỏa thuận đồng hành rõ ràng. Hướng dẫn danh mục giấy tờ cần thiết, thực hiện dịch thuật công chứng và điền đơn chuẩn xác.',
-    duration: '1 - 2 ngày',
-    actionText: 'Hoàn thiện hồ sơ',
+    title: 'Đánh Giá Sơ Bộ & Tư Vấn',
+    description:
+      'Chuyên viên trao đổi về yêu cầu hồ sơ tham khảo, các khoản chi phí liên quan và những điểm cần lưu ý.',
+    duration: 'Theo phạm vi tư vấn',
   },
   {
     step: '03',
-    title: 'Nộp Hồ Sơ & Sinh Trắc Học',
-    description: 'Đặt lịch hẹn sớm nhất tại trung tâm tiếp nhận thị thực. Chuyên viên đồng hành hỗ trợ quý khách tại buổi chụp hình lăn tay hoặc phỏng vấn.',
-    duration: 'Theo lịch hẹn',
-    actionText: 'Hỗ trợ nộp hồ sơ',
+    title: 'Hướng Dẫn Chuẩn Bị Hồ Sơ',
+    description:
+      'VISA5S hướng dẫn khách hàng rà soát tính đầy đủ, nhất quán của thông tin và chuẩn bị giấy tờ theo phạm vi dịch vụ đã thỏa thuận.',
+    duration: 'Phối hợp cùng khách hàng',
   },
   {
     step: '04',
-    title: 'Theo Dõi & Nhận Kết Quả Thị Thực',
-    description: 'Theo dõi tình trạng xét duyệt theo thời gian thực. Nhận hộ chiếu kèm kết quả từ cơ quan lãnh sự và giao tận tay quý khách an toàn bảo mật.',
-    duration: '3 - 15 ngày làm việc',
-    actionText: 'Giao nhận tận tay',
+    title: 'Hướng Dẫn Quy Trình Chính Thức',
+    description:
+      'Cung cấp thông tin về cơ quan tiếp nhận, phương thức đặt lịch, địa điểm và nguồn thông tin chính thức để khách hàng thực hiện theo quy định.',
+    duration: 'Khách hàng chủ động thực hiện',
   },
 ];
 
-export const TESTIMONIALS = [
+export const TRANSPARENCY_PILLARS = [
   {
-    quote: 'Hồ sơ công ty tôi cần cử đoàn 3 người sang Las Vegas dự hội nghị gấp. Chuyên viên VISA5S hướng dẫn trả lời phỏng vấn rất thực tế và tự tin. Kết quả cả 3 đều đạt kết quả thị thực Mỹ B1/B2 trong 1 tuần.',
-    name: 'Doanh nhân Hoàng Minh',
-    location: 'TP. Hồ Chí Minh',
-    visaAchieved: 'Đạt thị thực Mỹ B1/B2',
-    initials: 'HM',
-    stars: 5,
+    icon: 'corporate_fare',
+    title: 'Doanh Nghiệp Tư Nhân Độc Lập',
+    subtitle: 'Tư cách pháp nhân rõ ràng',
+    description:
+      'VISA5S hoạt động độc lập, không phải cơ quan Chính phủ, Đại sứ quán hay Lãnh sự quán; luôn truyền đạt trung thực phạm vi hỗ trợ.',
   },
   {
-    quote: 'Hồ sơ du lịch gia đình 4 người của mình có con nhỏ và người lớn tuổi nên khá phức tạp về giải trình công việc. Đội ngũ VISA5S sắp xếp tài liệu rất logic, hồ sơ Schengen Pháp đạt kết quả nhanh sau 10 ngày.',
-    name: 'Chị Thanh Trúc',
-    location: 'Hà Nội',
-    visaAchieved: 'Đạt thị thực Schengen Pháp',
-    initials: 'TT',
-    stars: 5,
+    icon: 'receipt_long',
+    title: 'Tách Bạch 3 Nhóm Chi Phí',
+    subtitle: 'Báo giá trước khi sử dụng',
+    description:
+      'Phân biệt rõ phí dịch vụ tư vấn của VISA5S, lệ phí chính thức của cơ quan có thẩm quyền và chi phí bên thứ ba (dịch thuật, công chứng nếu có).',
   },
   {
-    quote: 'Thời gian xử lý nhanh, chăm sóc khách hàng rất chu đáo, cập nhật qua Zalo liên tục. Mình đã được cấp thị thực Úc 3 năm nhiều lần mà không hề gặp rắc rối phát sinh chi phí nào. Rất an tâm khi lựa chọn đồng hành!',
-    name: 'Anh Quốc Bảo',
-    location: 'Đà Nẵng',
-    visaAchieved: 'Đạt thị thực Úc Subclass 600',
-    initials: 'QB',
-    stars: 5,
+    icon: 'verified_user',
+    title: 'Không Cam Kết Kết Quả Sai Sự Thật',
+    subtitle: 'Tôn trọng thẩm quyền xét duyệt',
+    description:
+      'Quyết định cấp hay từ chối thị thực thuộc hoàn toàn cơ quan có thẩm quyền của quốc gia tiếp nhận. Chúng tôi tập trung rà soát thông tin đầy đủ và nhất quán.',
   },
   {
-    quote: 'Tôi từng chưa đạt thị thực Hàn Quốc 1 lần do đơn vị tư vấn cũ khai thiếu giấy tờ thuế. May mắn tìm được VISA5S, các bạn đã làm lại giải trình rõ ràng và tôi đã đạt thị thực thành công sau đúng 6 ngày.',
-    name: 'Chị Mai Phương',
-    location: 'Hải Phòng',
-    visaAchieved: 'Đạt lại thị thực Hàn Quốc C-3-9',
-    initials: 'MP',
-    stars: 5,
+    icon: 'public',
+    title: 'Khuyến Khích Kiểm Tra Nguồn Chính Thức',
+    subtitle: 'Minh bạch quyền lựa chọn',
+    description:
+      'Khách hàng có thể tự tìm hiểu và nộp trực tiếp tại cơ quan chính thức với mức lệ phí quy định, hoặc sử dụng dịch vụ tư vấn hướng dẫn của VISA5S.',
   },
 ];
 
 export const FAQS = [
   {
-    question: 'Chi phí tư vấn & hoàn thiện hồ sơ thị thực tại VISA5S là bao nhiêu?',
-    answer: 'Chi phí tại VISA5S được báo giá trọn gói và minh bạch, phụ thuộc vào từng quốc gia cụ thể và loại hồ sơ (du lịch, thương mại, thăm thân). Báo giá luôn tách bạch rõ ràng giữa: Lệ phí nộp bắt buộc cho cơ quan đại diện ngoại giao/Đại sứ quán và phí tư vấn hoàn thiện hồ sơ. Chúng tôi cam kết tuyệt đối không phát sinh chi phí ngoài hợp đồng.',
-    category: 'Chi phí & Báo giá',
+    question: 'VISA5S có phải cơ quan Chính phủ, Đại sứ quán hay đơn vị được ủy quyền cấp thị thực không?',
+    answer:
+      'Không. VISA5S là doanh nghiệp tư nhân độc lập (thuộc Công ty TNHH Tư vấn Đầu tư Asia Blue Sky), chuyên cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh, thị thực quốc tế. VISA5S không phải cơ quan Chính phủ, Đại sứ quán hoặc Lãnh sự quán và không có thẩm quyền quyết định kết quả xét duyệt.',
   },
   {
-    question: 'Thời gian xét duyệt hồ sơ thị thực thường mất bao lâu?',
-    answer: 'Thời gian xử lý trung bình từ 3 đến 15 ngày làm việc tùy vào quốc gia và thời điểm cao điểm du lịch trong năm. Các nước Châu Á như Hàn Quốc, Đài Loan mất khoảng 5 - 8 ngày. Các nước Châu Âu, Mỹ, Úc hoặc Canada thường dao động từ 10 - 25 ngày làm việc tính từ thời điểm lấy sinh trắc học hoặc phỏng vấn.',
-    category: 'Thời gian',
+    question: 'Chi phí dịch vụ tư vấn của VISA5S và lệ phí chính thức khác nhau như thế nào?',
+    answer:
+      'Phí dịch vụ tư vấn của VISA5S là khoản phí thương mại độc lập chi trả cho hoạt động tư vấn thông tin, rà soát và hướng dẫn chuẩn bị giấy tờ. Khoản phí này tách biệt hoàn toàn với lệ phí thị thực hoặc phí tiếp nhận do cơ quan có thẩm quyền / đơn vị tiếp nhận chính thức quy định. Nếu có nhu cầu dịch thuật, công chứng hoặc dịch vụ bên thứ ba, các khoản phí đó cũng được tách bạch rõ.',
   },
   {
-    question: 'Trường hợp hồ sơ tài chính chưa mạnh có thể chuẩn bị hồ sơ thị thực được không?',
-    answer: 'Hoàn toàn có thể. Viên chức lãnh sự không chỉ nhìn vào số dư ngân hàng mà còn xem xét sự logic giữa công việc, nguồn thu nhập, lịch sử đóng bảo hiểm xã hội và sự ràng buộc quay về Việt Nam. Chuyên viên VISA5S sẽ giúp bạn khai thác những điểm mạnh khác trong hồ sơ để tạo lập sự thuyết phục hợp lý.',
-    category: 'Điều kiện hồ sơ',
+    question: 'Khách hàng có thể tự tìm hiểu và tự nộp hồ sơ mà không qua VISA5S không?',
+    answer:
+      'Hoàn toàn có thể. Khách hàng luôn có quyền tự tra cứu yêu cầu, tải biểu mẫu, đặt lịch hẹn và nộp hồ sơ trực tiếp tại website hoặc trung tâm tiếp nhận chính thức của cơ quan có thẩm quyền (chỉ đóng lệ phí chính thức theo quy định, không mất phí tư vấn thương mại). Dịch vụ của VISA5S phù hợp với những khách hàng muốn có chuyên viên đồng hành giải thích quy trình và rà soát tính đầy đủ của thông tin.',
   },
   {
-    question: 'Đã từng bị từ chối hồ sơ (chưa đạt thị thực) có thể nộp lại được không?',
-    answer: 'Có thể nộp lại bất kỳ lúc nào nếu bạn đã khắc phục được lý do từ chối trước đó. VISA5S có giải pháp thẩm định chuyên sâu các bộ hồ sơ từng bị từ chối: chúng tôi phân tích thư từ chối (refusal letter), rà soát tờ khai cũ và soạn văn bản giải trình chi tiết để đại sứ quán có cái nhìn khách quan mới.',
-    category: 'Hồ sơ chưa đạt',
+    question: 'VISA5S có bảo đảm hoặc cam kết tỷ lệ đạt kết quả không?',
+    answer:
+      'Không. Theo thông lệ quốc tế, quyền xem xét, yêu cầu bổ sung, phỏng vấn và quyết định cấp hay từ chối thị thực thuộc hoàn toàn cơ quan có thẩm quyền của quốc gia tiếp nhận. VISA5S cam kết tư vấn trung thực, hướng dẫn chuẩn bị giấy tờ đầy đủ và nhất quán trong phạm vi thỏa thuận, không đưa ra cam kết về kết quả xét duyệt.',
   },
   {
-    question: 'VISA5S có cam kết 100% đạt thị thực không?',
-    answer: 'Theo quy định pháp luật và thông lệ quốc tế, quyết định cấp thị thực hoàn toàn thuộc thẩm quyền chủ quyền của cơ quan đại diện ngoại giao (Đại sứ quán / Lãnh sự quán) của nước sở tại. Bất kỳ đơn vị nào cam kết 100% bao đạt kết quả đều là sai sự thật. VISA5S cam kết tối ưu hóa bộ hồ sơ đạt tiêu chuẩn cao nhất, khắc phục điểm yếu và nâng tỷ lệ thành công lên mức tối đa.',
-    category: 'Cam kết chất lượng',
+    question: 'Việc gửi thông tin trên form website có đồng nghĩa đã nộp hồ sơ xin thị thực chưa?',
+    answer:
+      'Chưa. Thông tin khách hàng gửi qua biểu mẫu trên website chỉ được sử dụng để chuyên viên VISA5S liên hệ tư vấn ban đầu về dịch vụ. Việc gửi thông tin này không đồng nghĩa với việc đã nộp hồ sơ xin thị thực cho bất kỳ cơ quan có thẩm quyền nào.',
   },
 ];
 
@@ -401,7 +667,6 @@ export const OFFICE_LOCATIONS = [
   {
     title: 'Trụ sở chính',
     city: 'TP.HCM',
-    badge: 'Trụ sở',
     address: '370 Đường 3/2, P. Hòa Hưng, TP.HCM',
     phone: '0911 909 686',
     hours: 'Thứ 2 - Thứ 7: 08:00 - 18:00',
@@ -409,7 +674,6 @@ export const OFFICE_LOCATIONS = [
   {
     title: 'VP Chi nhánh',
     city: 'TP.HCM',
-    badge: 'Chi nhánh',
     address: '16 Trần Đại Nghĩa, P. Đông Hòa, TPHCM',
     phone: '0967 686 101',
     hours: 'Thứ 2 - Thứ 7: 08:00 - 18:00',
@@ -417,7 +681,6 @@ export const OFFICE_LOCATIONS = [
   {
     title: 'VP Hà Nội',
     city: 'Hà Nội',
-    badge: 'Chi nhánh',
     address: '59 Vương Thừa Vũ, Q. Thanh Xuân, Hà Nội',
     phone: '0911 909 686',
     hours: 'Thứ 2 - Thứ 7: 08:00 - 18:00',

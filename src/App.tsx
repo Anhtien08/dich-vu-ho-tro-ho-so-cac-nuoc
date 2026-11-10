@@ -18,11 +18,13 @@ import { Footer } from './components/Footer';
 import { FloatingContactWidget } from './components/FloatingContactWidget';
 import { MobileBottomBar } from './components/MobileBottomBar';
 import { ConsultationModal } from './components/ConsultationModal';
+import { LegalModal, LegalDocType } from './components/LegalModal';
 
 export default function App() {
   const [isConsultModalOpen, setIsConsultModalOpen] = useState(false);
   const [consultCountryId, setConsultCountryId] = useState<string | undefined>(undefined);
   const [consultPurpose, setConsultPurpose] = useState<string | undefined>(undefined);
+  const [legalDocType, setLegalDocType] = useState<LegalDocType>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const handleOpenConsultModal = (countryId?: string, purpose?: string) => {
@@ -41,7 +43,7 @@ export default function App() {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage(null);
-    }, 4000);
+    }, 4500);
   };
 
   return (
@@ -62,11 +64,14 @@ export default function App() {
         {/* Hero Section with Consult Form */}
         <HeroSection
           onSuccessSubmit={(data) => {
-            showToast(`Cảm ơn ${data.name}! VISA5S sẽ liên hệ bạn qua SĐT ${data.phone} trong 15 phút.`);
+            showToast(
+              `Đã tiếp nhận thông tin của ${data.name} (${data.phone}). Chuyên viên VISA5S sẽ liên hệ tư vấn.`
+            );
           }}
+          onOpenPrivacy={() => setLegalDocType('privacy')}
         />
 
-        {/* Trust Statistics Strip with authentic wavy tropical water banner */}
+        {/* Independent Advisory Highlights Strip */}
         <TrustStatsStrip />
 
         {/* Destination Countries with filter tabs & search */}
@@ -74,39 +79,35 @@ export default function App() {
           onSelectCountryForConsult={(countryId) => handleOpenConsultModal(countryId)}
         />
 
-        {/* Why Choose VISA5S Value Grid */}
+        {/* Practical Consulting Scope Grid */}
         <WhyChooseUs />
 
-        {/* Visa Categories by Purpose */}
+        {/* Categories by Travel Purpose */}
         <VisaCategories
           onSelectPurpose={(purposeId) => handleOpenConsultModal(undefined, purposeId)}
         />
 
-        {/* 4-Step Process & Profile Evaluator */}
-        <ProcessTimeline
-          onOpenConsult={() => handleOpenConsultModal()}
-        />
+        {/* 4-Step Process & Reference Checklist */}
+        <ProcessTimeline onOpenConsult={() => handleOpenConsultModal()} />
 
-        {/* Customer Testimonials & Reviews */}
+        {/* Transparency & Cost Breakdown */}
         <Testimonials />
 
         {/* Frequently Asked Questions (FAQ) */}
         <FaqSection />
 
-        {/* Final High-Conversion Section */}
-        <FinalCtaSection />
+        {/* Final Consultation & Legal Disclaimer Section */}
+        <FinalCtaSection onOpenPrivacy={() => setLegalDocType('privacy')} />
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenLegalDoc={(doc) => setLegalDocType(doc)} />
 
       {/* Floating Quick Action Contacts (Email, Zalo, Call) */}
       <FloatingContactWidget />
 
       {/* Mobile Sticky Bottom Conversion Bar */}
-      <MobileBottomBar
-        onOpenConsultModal={() => handleOpenConsultModal()}
-      />
+      <MobileBottomBar onOpenConsultModal={() => handleOpenConsultModal()} />
 
       {/* Interactive Consultation Modal */}
       <ConsultationModal
@@ -114,7 +115,11 @@ export default function App() {
         onClose={handleCloseConsultModal}
         defaultCountryId={consultCountryId}
         defaultPurpose={consultPurpose}
+        onOpenPrivacy={() => setLegalDocType('privacy')}
       />
+
+      {/* Interactive Legal & Privacy Modal */}
+      <LegalModal docType={legalDocType} onClose={() => setLegalDocType(null)} />
     </div>
   );
 }

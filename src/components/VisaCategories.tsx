@@ -14,10 +14,10 @@ export const VisaCategories: React.FC<VisaCategoriesProps> = ({ onSelectPurpose 
             MỤC ĐÍCH CHUYẾN ĐI
           </span>
           <h2 className="text-[28px] sm:text-[36px] font-extrabold text-[#002552] tracking-tight">
-            Các Diện Hồ Sơ Thị Thực Chuyên Biệt
+            Tư Vấn Chuẩn Bị Hồ Sơ Theo Diện Chuyến Đi
           </h2>
           <p className="text-[15px] text-[#64748b] leading-relaxed">
-            Từng diện hồ sơ yêu cầu bộ giải trình và chứng từ chứng minh khác nhau để thuyết phục viên chức lãnh sự.
+            Mỗi mục đích chuyến đi sẽ có nhóm giấy tờ tham khảo và lưu ý chuẩn bị khác nhau theo quy định của quốc gia tiếp nhận.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export const VisaCategories: React.FC<VisaCategoriesProps> = ({ onSelectPurpose 
                 onClick={() => onSelectPurpose(category.id)}
                 className="w-full py-2.5 rounded-lg bg-[#f5f7fa] hover:bg-[#002552] hover:text-white text-[#002552] font-semibold text-[13px] text-center transition-colors border border-[#e2e8f0] cursor-pointer"
               >
-                Đăng ký hỗ trợ diện này
+                Tư vấn hồ sơ
               </button>
             </div>
           ))}

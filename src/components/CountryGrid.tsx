@@ -35,13 +35,13 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="flex flex-col gap-2 max-w-xl">
             <span className="text-[11px] font-bold text-[#0060aa] uppercase tracking-widest">
-              Điểm Đến Phổ Biến
+              THÔNG TIN THAM KHẢO THEO QUỐC GIA
             </span>
             <h2 className="text-[28px] sm:text-[34px] font-extrabold text-[#002552] tracking-tight leading-snug">
-              Giải pháp hỗ trợ hồ sơ thị thực các nước tiêu biểu
+              Tư vấn thông tin chuẩn bị hồ sơ các quốc gia
             </h2>
             <p className="text-[15px] text-[#64748b]">
-              Đa dạng hành trình du lịch, thương mại và thăm thân với lộ trình hoàn thiện hồ sơ chuẩn chỉnh nhất.
+              Xem mục đích chuyến đi, các nhóm giấy tờ thường được yêu cầu, lưu ý chuẩn bị và liên kết cổng thông tin chính thức của từng quốc gia.
             </p>
           </div>
 
@@ -54,7 +54,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
               </span>
               <input
                 type="text"
-                placeholder="Tìm nước cần nộp hồ sơ thị thực..."
+                placeholder="Tìm quốc gia dự định đến..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full sm:w-56 h-10 pl-9 pr-3 rounded-lg bg-white border border-[#e2e8f0] text-[13px] text-[#1e293b] outline-none focus:border-[#0060aa] focus:ring-2 focus:ring-[#0060aa]/20 shadow-xs"
@@ -137,7 +137,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
             <span className="material-symbols-outlined text-[48px] text-[#64748b] mb-2">travel_explore</span>
             <p className="text-[16px] font-semibold text-[#002552]">Không tìm thấy quốc gia phù hợp</p>
             <p className="text-[13px] text-[#64748b] mt-1">
-              Vui lòng thử tìm với từ khóa khác hoặc liên hệ hotline để được tư vấn bất kỳ nước nào trên thế giới.
+              Vui lòng thử tìm với từ khóa khác hoặc gửi yêu cầu tư vấn cho quốc gia bạn quan tâm.
             </p>
             <button
               type="button"
@@ -145,9 +145,9 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
                 setActiveFilter('all');
                 setSearchQuery('');
               }}
-              className="mt-4 px-4 py-2 rounded-lg bg-[#002552] text-white text-[13px] font-semibold"
+              className="mt-4 px-4 py-2 rounded-lg bg-[#002552] text-white text-[13px] font-semibold cursor-pointer"
             >
-              Xem tất cả các nước
+              Xem tất cả quốc gia
             </button>
           </div>
         ) : (
@@ -161,7 +161,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
                 <div className="relative h-48 w-full overflow-hidden bg-[#eff4ff]">
                   <img
                     src={country.heroImage}
-                    alt={country.name}
+                    alt={`Thông tin tham khảo hồ sơ ${country.name}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   {/* Continent badge */}
@@ -174,9 +174,9 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
                     <span>{country.continentLabel}</span>
                   </div>
 
-                  {/* Processing time banner */}
+                  {/* Reference Purpose Banner */}
                   <div className="absolute bottom-3 left-3 right-3 px-3 py-1 rounded-md bg-[#002552]/85 backdrop-blur-sm text-white text-[12px] font-semibold tracking-wide">
-                    {country.badgeTime}
+                    {country.badgeInfo}
                   </div>
                 </div>
 
@@ -210,7 +210,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
                       onClick={() => handleOpenDetail(country)}
                       className="inline-flex items-center gap-1 text-[#0060aa] text-[14px] font-bold group-hover:translate-x-1 transition-transform cursor-pointer"
                     >
-                      <span>Tìm hiểu giải pháp</span>
+                      <span>Tìm hiểu quy trình</span>
                       <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                     </button>
 
@@ -219,7 +219,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
                       onClick={() => onSelectCountryForConsult(country.id)}
                       className="px-2.5 py-1 rounded-md bg-[#ea580c]/10 hover:bg-[#ea580c] text-[#ea580c] hover:text-white text-[12px] font-bold transition-colors cursor-pointer"
                     >
-                      Tư vấn ngay
+                      Tư vấn hồ sơ
                     </button>
                   </div>
                 </div>
@@ -235,7 +235,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
             onClick={() => onSelectCountryForConsult('all')}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#002552] text-white text-[14px] font-bold hover:bg-[#103b73] transition-colors shadow-sm cursor-pointer"
           >
-            <span>Xem tất cả hơn 50+ quốc gia</span>
+            <span>Nhận tư vấn ban đầu cho quốc gia khác</span>
             <span className="material-symbols-outlined text-[18px]">travel_explore</span>
           </button>
           <a
@@ -243,7 +243,7 @@ export const CountryGrid: React.FC<CountryGridProps> = ({ onSelectCountryForCons
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-white border border-[#cbd5e1] text-[#0060aa] text-[14px] font-bold hover:bg-[#eff4ff] transition-colors shadow-sm"
           >
             <span className="material-symbols-outlined text-[18px]">phone_in_talk</span>
-            <span>Hỏi đáp tư vấn quốc gia khác</span>
+            <span>Trao đổi qua Hotline 0911.909.686</span>
           </a>
         </div>
       </div>

@@ -12,7 +12,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenConsultM
         className="flex-1 h-11 flex items-center justify-center gap-1.5 rounded-lg bg-[#002552] text-white text-[13px] font-bold shadow-xs active:scale-95 transition-transform"
       >
         <span className="material-symbols-outlined text-[18px] text-[#ea580c]">phone_in_talk</span>
-        <span>Gọi tư vấn ngay</span>
+        <span>Gọi tư vấn</span>
       </a>
 
       <button
@@ -21,7 +21,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOpenConsultM
         className="flex-1 h-11 flex items-center justify-center gap-1.5 rounded-lg bg-[#ea580c] hover:bg-[#c2410c] text-white text-[13px] font-bold shadow-sm active:scale-95 transition-transform cursor-pointer"
       >
         <span className="material-symbols-outlined text-[18px]">edit_calendar</span>
-        <span>Đăng ký tư vấn</span>
+        <span>Nhận tư vấn ban đầu</span>
       </button>
     </div>
   );
