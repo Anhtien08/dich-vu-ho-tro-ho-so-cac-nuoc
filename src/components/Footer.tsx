@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalDoc }) => {
               Công ty TNHH Tư vấn Đầu tư Asia Blue Sky
             </p>
             <p className="text-[13px] text-[#64748b] leading-relaxed">
-              Doanh nghiệp tư nhân độc lập, chuyên cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh, thị thực quốc tế.
+              Doanh nghiệp tư nhân độc lập, chuyên cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh quốc tế.
             </p>
 
             <div className="flex flex-wrap items-center gap-2 pt-1">

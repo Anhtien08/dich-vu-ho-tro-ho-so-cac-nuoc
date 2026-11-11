@@ -1,6 +1,6 @@
 {
-  "name": "VISA5S - Tư Vấn Thông Tin & Chuẩn Bị Hồ Sơ Thị Thực Quốc Tế",
-  "description": "Doanh nghiệp tư nhân độc lập cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh, thị thực quốc tế.",
+  "name": "VISA5S - Tư Vấn Thông Tin & Chuẩn Bị Hồ Sơ Xuất Nhập Cảnh Quốc Tế",
+  "description": "Doanh nghiệp tư nhân độc lập cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh quốc tế.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

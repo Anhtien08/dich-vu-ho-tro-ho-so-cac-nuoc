@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
             Trang chủ
           </a>
           <a
-            href="#ho-so-thi-thuc"
+            href="#ho-so-xuat-nhap-canh"
             className="text-[14px] font-medium text-[#434750] hover:text-[#0060aa] transition-colors whitespace-nowrap"
           >
             Diện hồ sơ
@@ -139,7 +139,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultModal }) => {
               <span className="material-symbols-outlined text-[18px] text-[#64748b]">chevron_right</span>
             </a>
             <a
-              href="#ho-so-thi-thuc"
+              href="#ho-so-xuat-nhap-canh"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-lg text-[14px] font-medium text-[#1e293b] hover:bg-[#eff4ff] flex items-center justify-between"
             >

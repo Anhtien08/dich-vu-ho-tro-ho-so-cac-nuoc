@@ -66,7 +66,7 @@ export const Testimonials: React.FC = () => {
               <span className="text-[12px] font-bold text-[#0060aa] uppercase">Khoản phí 2</span>
               <h4 className="text-[15px] font-bold text-[#002552] mt-1">Lệ phí do cơ quan có thẩm quyền quy định</h4>
               <p className="text-[13px] text-[#434750] mt-1.5 leading-relaxed">
-                Là lệ phí xét duyệt thị thực hoặc phí dịch vụ của trung tâm tiếp nhận chính thức do quốc gia tiếp nhận quy định. Khách hàng xem biểu phí cập nhật trực tiếp tại website chính thức của cơ quan có thẩm quyền.
+                Là lệ phí xét duyệt hồ sơ nhập cảnh hoặc phí dịch vụ của trung tâm tiếp nhận chính thức do quốc gia tiếp nhận quy định. Khách hàng xem biểu phí cập nhật trực tiếp tại website chính thức của cơ quan có thẩm quyền.
               </p>
             </div>
 

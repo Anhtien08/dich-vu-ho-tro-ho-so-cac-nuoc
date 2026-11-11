@@ -36,13 +36,13 @@ export interface CountryVisa {
 export const LEGAL_DISCLAIMER = {
   title: 'THÔNG TIN PHÁP LÝ',
   paragraphs: [
-    'VISA5S là doanh nghiệp tư nhân cung cấp dịch vụ tư vấn thông tin và hỗ trợ chuẩn bị hồ sơ xuất nhập cảnh, thị thực quốc tế.',
-    'VISA5S không phải cơ quan Chính phủ, Đại sứ quán hoặc Lãnh sự quán; không trực tiếp cấp thị thực và không có thẩm quyền quyết định kết quả xét duyệt hồ sơ.',
-    'Quyết định cấp hoặc từ chối thị thực thuộc cơ quan có thẩm quyền của quốc gia tiếp nhận. Khách hàng cần kiểm tra các yêu cầu, lệ phí và quy trình mới nhất tại website chính thức của cơ quan có thẩm quyền.',
+    'VISA5S là doanh nghiệp tư nhân cung cấp dịch vụ tư vấn thông tin và hỗ trợ chuẩn bị hồ sơ xuất nhập cảnh quốc tế.',
+    'VISA5S không phải cơ quan Chính phủ, Đại sứ quán hoặc Lãnh sự quán; không trực tiếp cấp phép nhập cảnh và không có thẩm quyền quyết định kết quả xét duyệt hồ sơ.',
+    'Quyết định chấp thuận hoặc từ chối hồ sơ nhập cảnh thuộc cơ quan có thẩm quyền của quốc gia tiếp nhận. Khách hàng cần kiểm tra các yêu cầu, lệ phí và quy trình mới nhất tại website chính thức của cơ quan có thẩm quyền.',
     'Phí dịch vụ tư vấn của VISA5S là khoản phí độc lập với lệ phí do cơ quan nhà nước hoặc đơn vị tiếp nhận chính thức quy định.',
   ],
   formNotice:
-    'Thông tin được sử dụng để VISA5S liên hệ tư vấn về dịch vụ. Việc gửi thông tin không đồng nghĩa với việc đã nộp hồ sơ xin thị thực cho cơ quan có thẩm quyền.',
+    'Thông tin được sử dụng để VISA5S liên hệ tư vấn về dịch vụ. Việc gửi thông tin không đồng nghĩa với việc đã nộp hồ sơ xin phép nhập cảnh cho cơ quan có thẩm quyền.',
 };
 
 export const COUNTRIES: CountryVisa[] = [
@@ -97,11 +97,11 @@ export const COUNTRIES: CountryVisa[] = [
     ],
     feeTransparency: {
       consultingFee: 'Báo giá minh bạch theo phạm vi tư vấn, đánh giá và hướng dẫn rà soát hồ sơ của VISA5S.',
-      officialFee: 'Lệ phí thị thực và phí trung tâm tiếp nhận (nếu có) thanh toán trực tiếp theo biểu phí chính thức.',
+      officialFee: 'Lệ phí xét duyệt hồ sơ và phí trung tâm tiếp nhận (nếu có) thanh toán trực tiếp theo biểu phí chính thức.',
       thirdPartyFee: 'Phí dịch thuật, công chứng hoặc chụp ảnh do đơn vị cung cấp bên thứ ba thu theo thực tế (nếu khách hàng cần).',
     },
     officialSources: [
-      { label: 'Cổng thông tin Thị thực Hàn Quốc (Korea Visa Portal)', url: 'https://www.visa.go.kr/' },
+      { label: 'Cổng thông tin Nhập cảnh Hàn Quốc (Korea Visa Portal)', url: 'https://www.visa.go.kr/' },
     ],
   },
   {
@@ -153,7 +153,7 @@ export const COUNTRIES: CountryVisa[] = [
     ],
     feeTransparency: {
       consultingFee: 'Phí dịch vụ tư vấn thông tin và rà soát hồ sơ độc lập của VISA5S được thông báo rõ trước khi thực hiện.',
-      officialFee: 'Lệ phí thị thực quy định bởi cơ quan đại diện ngoại giao Nhật Bản.',
+      officialFee: 'Lệ phí xét duyệt hồ sơ quy định bởi cơ quan đại diện ngoại giao Nhật Bản.',
       thirdPartyFee: 'Chi phí dịch thuật, công chứng hoặc phí tiếp nhận của đơn vị được chỉ định (nếu có).',
     },
     officialSources: [
@@ -178,9 +178,9 @@ export const COUNTRIES: CountryVisa[] = [
       'Diện Thương mại M (tham khảo)',
       'Diện Thăm thân Q1 / Q2 (tham khảo)',
     ],
-    processingTimeRef: 'Theo thời gian xử lý công bố của Trung tâm Dịch vụ Thị thực / Lãnh sự',
-    validityRef: 'Tùy diện thị thực và quyết định của cơ quan lãnh sự',
-    stayDurationRef: 'Theo thời hạn ghi trên thị thực được cấp (nếu được chấp thuận)',
+    processingTimeRef: 'Theo thời gian xử lý công bố của Trung tâm Tiếp nhận Hồ sơ / Lãnh sự',
+    validityRef: 'Tùy diện hồ sơ và quyết định của cơ quan lãnh sự',
+    stayDurationRef: 'Theo thời hạn ghi trên giấy phép nhập cảnh được cấp (nếu được chấp thuận)',
     preparationLevel: 'Cơ bản',
     requirements: {
       personal: [
@@ -206,11 +206,11 @@ export const COUNTRIES: CountryVisa[] = [
     ],
     feeTransparency: {
       consultingFee: 'Phí dịch vụ tư vấn thông tin và rà soát giấy tờ của VISA5S được thỏa thuận trước.',
-      officialFee: 'Lệ phí thị thực và phí trung tâm tiếp nhận chính thức theo quy định hiện hành.',
+      officialFee: 'Lệ phí xét duyệt hồ sơ và phí trung tâm tiếp nhận chính thức theo quy định hiện hành.',
       thirdPartyFee: 'Phí chụp ảnh, dịch thuật công chứng hoặc phát sinh bên thứ ba (nếu có).',
     },
     officialSources: [
-      { label: 'Cổng Trung tâm Dịch vụ Thị thực Trung Quốc (CVASC)', url: 'https://www.visaforchina.cn/' },
+      { label: 'Cổng Trung tâm Tiếp nhận Hồ sơ Trung Quốc (CVASC)', url: 'https://www.visaforchina.cn/' },
     ],
   },
   {
@@ -278,8 +278,8 @@ export const COUNTRIES: CountryVisa[] = [
     tags: ['Rà soát thông tin', 'Giải thích quy trình'],
     purposes: ['Công tác / Hội nghị (B1)', 'Du lịch / Thăm thân (B2)', 'Kết hợp B1/B2'],
     visaTypes: [
-      'Thị thực không định cư B1 (Công tác - tham khảo)',
-      'Thị thực không định cư B2 (Du lịch, thăm thân - tham khảo)',
+      'Diện không định cư B1 (Công tác - tham khảo)',
+      'Diện không định cư B2 (Du lịch, thăm thân - tham khảo)',
       'Gia hạn qua đường bưu điện (nếu đủ điều kiện theo quy định)',
     ],
     processingTimeRef: 'Phụ thuộc lịch hẹn phỏng vấn và quy trình xử lý của Lãnh sự quán Hoa Kỳ',
@@ -322,7 +322,7 @@ export const COUNTRIES: CountryVisa[] = [
     name: 'Châu Âu (Schengen)',
     continent: 'europe',
     continentLabel: 'CHÂU ÂU',
-    badgeInfo: 'Tham khảo: Thị thực ngắn hạn Type C',
+    badgeInfo: 'Tham khảo: Diện ngắn hạn Type C',
     heroImage:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuBhf6CcIAyaGRuRxkVPjdp8a9QnC-DsCcrCuBCEOZKp4t3Nwm7ZUlLWqAqg4D91bcrHClXzFJAJ-wDaSEkFPFXNoVoMzqhJPMJtUj9lnMC9aCtZwr8iBb34clgAGRJIyUvLGjrAevZbun9wwR3tJ0ARF3_YCuU8-NTndCtx7Y_pUDLiS-ZwB9pHRrROtKyvSZzzhS6Z_YPLeUjuxGADgnZCp9w1sS1oOKOtRNSRdGYebP3Txn_m1WEa',
     shortDesc:
@@ -330,13 +330,13 @@ export const COUNTRIES: CountryVisa[] = [
     tags: ['Lịch trình tham khảo', 'Nguồn chính thức'],
     purposes: ['Du lịch ngắn hạn', 'Công tác / Hội thảo', 'Thăm thân nhân'],
     visaTypes: [
-      'Thị thực ngắn hạn Schengen Type C (tham khảo)',
+      'Diện ngắn hạn Schengen Type C (tham khảo)',
       'Diện Công tác / Thương mại (tham khảo)',
       'Diện Thăm thân có giấy bảo lãnh (tham khảo)',
     ],
     processingTimeRef: 'Theo quy định xét duyệt của Đại sứ quán / Lãnh sự quán nước thành viên tiếp nhận',
     validityRef: 'Do cơ quan lãnh sự quốc gia thành viên Schengen cấp phép',
-    stayDurationRef: 'Theo quy định khối Schengen và thời hạn ghi trên thị thực (nếu được cấp)',
+    stayDurationRef: 'Theo quy định khối Schengen và thời hạn ghi trên giấy phép nhập cảnh (nếu được cấp)',
     preparationLevel: 'Cần chuẩn bị kỹ',
     requirements: {
       personal: [
@@ -362,12 +362,12 @@ export const COUNTRIES: CountryVisa[] = [
     ],
     feeTransparency: {
       consultingFee: 'Phí dịch vụ tư vấn thông tin, rà soát lịch trình và danh mục hồ sơ của VISA5S.',
-      officialFee: 'Lệ phí thị thực Schengen và phí dịch vụ trung tâm tiếp nhận chính thức (nếu áp dụng).',
+      officialFee: 'Lệ phí xét duyệt hồ sơ Schengen và phí dịch vụ trung tâm tiếp nhận chính thức (nếu áp dụng).',
       thirdPartyFee: 'Phí bảo hiểm du lịch quốc tế, dịch thuật công chứng tiếng Anh/ngôn ngữ đích.',
     },
     officialSources: [
       {
-        label: 'Ủy ban Châu Âu - Chính sách Thị thực Schengen',
+        label: 'Ủy ban Châu Âu - Chính sách Nhập cảnh Schengen',
         url: 'https://home-affairs.ec.europa.eu/policies/schengen-borders-and-visa/visa-policy_en',
       },
     ],
@@ -442,7 +442,7 @@ export const COUNTRIES: CountryVisa[] = [
       'Business Visit (tham khảo)',
       'Family Visit (tham khảo)',
     ],
-    processingTimeRef: 'Theo thời gian xử lý công bố của Cơ quan Thị thực và Di trú Anh (UKVI)',
+    processingTimeRef: 'Theo thời gian xử lý công bố của Cơ quan Di trú và Nhập cảnh Anh (UKVI)',
     validityRef: 'Do UKVI quyết định dựa trên đơn đăng ký và thẩm định thực tế',
     stayDurationRef: 'Theo quy định của Standard Visitor được cấp (nếu được chấp thuận)',
     preparationLevel: 'Cần chuẩn bị kỹ',
@@ -468,7 +468,7 @@ export const COUNTRIES: CountryVisa[] = [
     ],
     feeTransparency: {
       consultingFee: 'Phí dịch vụ tư vấn và rà soát tính đầy đủ thông tin hồ sơ của VISA5S.',
-      officialFee: 'Lệ phí thị thực do Chính phủ Anh (UKVI) quy định trên GOV.UK.',
+      officialFee: 'Lệ phí xét duyệt hồ sơ do Chính phủ Anh (UKVI) quy định trên GOV.UK.',
       thirdPartyFee: 'Phí dịch thuật công chứng tiếng Anh và các dịch vụ tùy chọn tại trung tâm tiếp nhận (nếu chọn).',
     },
     officialSources: [
@@ -624,7 +624,7 @@ export const TRANSPARENCY_PILLARS = [
     title: 'Không Cam Kết Kết Quả Sai Sự Thật',
     subtitle: 'Tôn trọng thẩm quyền xét duyệt',
     description:
-      'Quyết định cấp hay từ chối thị thực thuộc hoàn toàn cơ quan có thẩm quyền của quốc gia tiếp nhận. Chúng tôi tập trung rà soát thông tin đầy đủ và nhất quán.',
+      'Quyết định chấp thuận hay từ chối hồ sơ nhập cảnh thuộc hoàn toàn cơ quan có thẩm quyền của quốc gia tiếp nhận. Chúng tôi tập trung rà soát thông tin đầy đủ và nhất quán.',
   },
   {
     icon: 'public',
@@ -637,14 +637,14 @@ export const TRANSPARENCY_PILLARS = [
 
 export const FAQS = [
   {
-    question: 'VISA5S có phải cơ quan Chính phủ, Đại sứ quán hay đơn vị được ủy quyền cấp thị thực không?',
+    question: 'VISA5S có phải cơ quan Chính phủ, Đại sứ quán hay đơn vị được ủy quyền cấp phép nhập cảnh không?',
     answer:
-      'Không. VISA5S là doanh nghiệp tư nhân độc lập (thuộc Công ty TNHH Tư vấn Đầu tư Asia Blue Sky), chuyên cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh, thị thực quốc tế. VISA5S không phải cơ quan Chính phủ, Đại sứ quán hoặc Lãnh sự quán và không có thẩm quyền quyết định kết quả xét duyệt.',
+      'Không. VISA5S là doanh nghiệp tư nhân độc lập (thuộc Công ty TNHH Tư vấn Đầu tư Asia Blue Sky), chuyên cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ xuất nhập cảnh quốc tế. VISA5S không phải cơ quan Chính phủ, Đại sứ quán hoặc Lãnh sự quán và không có thẩm quyền quyết định kết quả xét duyệt.',
   },
   {
     question: 'Chi phí dịch vụ tư vấn của VISA5S và lệ phí chính thức khác nhau như thế nào?',
     answer:
-      'Phí dịch vụ tư vấn của VISA5S là khoản phí thương mại độc lập chi trả cho hoạt động tư vấn thông tin, rà soát và hướng dẫn chuẩn bị giấy tờ. Khoản phí này tách biệt hoàn toàn với lệ phí thị thực hoặc phí tiếp nhận do cơ quan có thẩm quyền / đơn vị tiếp nhận chính thức quy định. Nếu có nhu cầu dịch thuật, công chứng hoặc dịch vụ bên thứ ba, các khoản phí đó cũng được tách bạch rõ.',
+      'Phí dịch vụ tư vấn của VISA5S là khoản phí thương mại độc lập chi trả cho hoạt động tư vấn thông tin, rà soát và hướng dẫn chuẩn bị giấy tờ. Khoản phí này tách biệt hoàn toàn với lệ phí xét duyệt hồ sơ hoặc phí tiếp nhận do cơ quan có thẩm quyền / đơn vị tiếp nhận chính thức quy định. Nếu có nhu cầu dịch thuật, công chứng hoặc dịch vụ bên thứ ba, các khoản phí đó cũng được tách bạch rõ.',
   },
   {
     question: 'Khách hàng có thể tự tìm hiểu và tự nộp hồ sơ mà không qua VISA5S không?',
@@ -654,12 +654,12 @@ export const FAQS = [
   {
     question: 'VISA5S có bảo đảm hoặc cam kết tỷ lệ đạt kết quả không?',
     answer:
-      'Không. Theo thông lệ quốc tế, quyền xem xét, yêu cầu bổ sung, phỏng vấn và quyết định cấp hay từ chối thị thực thuộc hoàn toàn cơ quan có thẩm quyền của quốc gia tiếp nhận. VISA5S cam kết tư vấn trung thực, hướng dẫn chuẩn bị giấy tờ đầy đủ và nhất quán trong phạm vi thỏa thuận, không đưa ra cam kết về kết quả xét duyệt.',
+      'Không. Theo thông lệ quốc tế, quyền xem xét, yêu cầu bổ sung, phỏng vấn và quyết định chấp thuận hay từ chối hồ sơ nhập cảnh thuộc hoàn toàn cơ quan có thẩm quyền của quốc gia tiếp nhận. VISA5S cam kết tư vấn trung thực, hướng dẫn chuẩn bị giấy tờ đầy đủ và nhất quán trong phạm vi thỏa thuận, không đưa ra cam kết về kết quả xét duyệt.',
   },
   {
-    question: 'Việc gửi thông tin trên form website có đồng nghĩa đã nộp hồ sơ xin thị thực chưa?',
+    question: 'Việc gửi thông tin trên form website có đồng nghĩa đã nộp hồ sơ xin phép nhập cảnh chưa?',
     answer:
-      'Chưa. Thông tin khách hàng gửi qua biểu mẫu trên website chỉ được sử dụng để chuyên viên VISA5S liên hệ tư vấn ban đầu về dịch vụ. Việc gửi thông tin này không đồng nghĩa với việc đã nộp hồ sơ xin thị thực cho bất kỳ cơ quan có thẩm quyền nào.',
+      'Chưa. Thông tin khách hàng gửi qua biểu mẫu trên website chỉ được sử dụng để chuyên viên VISA5S liên hệ tư vấn ban đầu về dịch vụ. Việc gửi thông tin này không đồng nghĩa với việc đã nộp hồ sơ xin phép nhập cảnh cho bất kỳ cơ quan có thẩm quyền nào.',
   },
 ];
 

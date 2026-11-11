@@ -57,7 +57,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ docType, onClose }) => {
                 <strong>2. Mục đích thu thập thông tin:</strong> Họ tên, số điện thoại/Zalo, quốc gia dự định đến, mục đích chuyến đi và thời gian dự kiến chỉ được sử dụng để chuyên viên VISA5S liên hệ tư vấn thông tin, đánh giá sơ bộ và trao đổi phạm vi hỗ trợ chuẩn bị hồ sơ theo yêu cầu của khách hàng.
               </p>
               <p>
-                <strong>3. Lưu ý quan trọng:</strong> Việc gửi thông tin trên website này <strong>không đồng nghĩa</strong> với việc đã nộp hồ sơ xin thị thực cho cơ quan Chính phủ, Đại sứ quán hay Lãnh sự quán.
+                <strong>3. Lưu ý quan trọng:</strong> Việc gửi thông tin trên website này <strong>không đồng nghĩa</strong> với việc đã nộp hồ sơ xin phép nhập cảnh cho cơ quan Chính phủ, Đại sứ quán hay Lãnh sự quán.
               </p>
               <p>
                 <strong>4. Phạm vi chia sẻ & bảo mật:</strong> Thông tin liên hệ không được bán, trao đổi hoặc cung cấp cho bên thứ ba ngoài phạm vi tư vấn khi chưa có sự đồng ý của khách hàng, trừ trường hợp theo yêu cầu hợp pháp của cơ quan nhà nước có thẩm quyền.
@@ -78,10 +78,10 @@ export const LegalModal: React.FC<LegalModalProps> = ({ docType, onClose }) => {
           {docType === 'terms' && (
             <>
               <p>
-                <strong>1. Tư cách doanh nghiệp & phạm vi dịch vụ:</strong> VISA5S cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị giấy tờ xuất nhập cảnh, thị thực quốc tế trên cơ sở thỏa thuận dịch vụ thương mại độc lập.
+                <strong>1. Tư cách doanh nghiệp & phạm vi dịch vụ:</strong> VISA5S cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị giấy tờ xuất nhập cảnh quốc tế trên cơ sở thỏa thuận dịch vụ thương mại độc lập.
               </p>
               <p>
-                <strong>2. Phân tách thẩm quyền:</strong> VISA5S không phải cơ quan Chính phủ, Đại sứ quán, Lãnh sự quán hoặc cơ quan cấp thị thực. Quyết định chấp thuận, yêu cầu bổ sung hay từ chối thị thực thuộc hoàn toàn thẩm quyền của cơ quan có thẩm quyền thuộc quốc gia tiếp nhận.
+                <strong>2. Phân tách thẩm quyền:</strong> VISA5S không phải cơ quan Chính phủ, Đại sứ quán, Lãnh sự quán hoặc cơ quan cấp phép nhập cảnh. Quyết định chấp thuận, yêu cầu bổ sung hay từ chối hồ sơ nhập cảnh thuộc hoàn toàn thẩm quyền của cơ quan có thẩm quyền thuộc quốc gia tiếp nhận.
               </p>
               <p>
                 <strong>3. Minh bạch chi phí:</strong> Phí dịch vụ tư vấn của VISA5S độc lập với lệ phí chính thức do cơ quan nhà nước hoặc đơn vị tiếp nhận quy định và độc lập với chi phí bên thứ ba (dịch thuật, công chứng, bảo hiểm... nếu phát sinh). Khách hàng luôn được báo giá rõ ràng trước khi thỏa thuận sử dụng dịch vụ.

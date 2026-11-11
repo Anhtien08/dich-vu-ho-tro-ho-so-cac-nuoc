@@ -68,7 +68,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
             <div className="flex flex-col gap-3">
               <h1 className="text-[32px] sm:text-[42px] lg:text-[48px] font-extrabold text-[#002552] tracking-tight leading-[1.15]">
                 Đồng Hành Tư Vấn <br />
-                <span className="text-[#ea580c]">Hồ Sơ Thị Thực Quốc Tế</span>
+                <span className="text-[#ea580c]">Hồ Sơ Xuất Nhập Cảnh Quốc Tế</span>
               </h1>
               <p className="text-[16px] lg:text-[17px] text-[#434750] max-w-2xl leading-relaxed">
                 VISA5S cung cấp dịch vụ tư vấn thông tin, đánh giá sơ bộ và hướng dẫn chuẩn bị hồ sơ theo yêu cầu của từng quốc gia.
@@ -153,7 +153,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
               <span className="material-symbols-outlined text-[#0060aa] text-[22px] shrink-0 mt-0.5">info</span>
               <div className="text-[12.5px] text-[#434750] leading-relaxed">
                 <strong className="text-[#002552]">{LEGAL_DISCLAIMER.title}: </strong>
-                VISA5S là doanh nghiệp tư nhân độc lập, <strong>không phải</strong> cơ quan Chính phủ, Đại sứ quán hay Lãnh sự quán. VISA5S không trực tiếp cấp và không có quyền quyết định kết quả xét duyệt thị thực.
+                VISA5S là doanh nghiệp tư nhân độc lập, <strong>không phải</strong> cơ quan Chính phủ, Đại sứ quán hay Lãnh sự quán. VISA5S không trực tiếp cấp phép và không có quyền quyết định kết quả xét duyệt hồ sơ xuất nhập cảnh.
               </div>
             </div>
           </div>
