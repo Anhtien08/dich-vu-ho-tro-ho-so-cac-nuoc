@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { COUNTRIES, LEGAL_DISCLAIMER } from '../data/visaData';
+import { trackConsultationLeadSuccess } from '../utils/tracking';
 
 interface FinalCtaSectionProps {
   onOpenPrivacy: () => void;
@@ -12,17 +13,52 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
   const [purpose, setPurpose] = useState('du-lich');
   const [expectedDate, setExpectedDate] = useState('');
   const [isSent, setIsSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const submitTimerRef = useRef<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current !== null) {
+        window.clearTimeout(submitTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSent(true);
-    setTimeout(() => {
+
+    if (isSubmittingRef.current || isSubmitting) return;
+
+    if (!e.currentTarget.checkValidity()) {
+      e.currentTarget.reportValidity();
+      return;
+    }
+
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+    if (!trimmedName || !trimmedPhone || !country) {
+      return;
+    }
+
+    isSubmittingRef.current = true;
+    setIsSubmitting(true);
+    setIsSent(false);
+
+    submitTimerRef.current = window.setTimeout(() => {
+      submitTimerRef.current = null;
+      isSubmittingRef.current = false;
+      setIsSubmitting(false);
+
+      trackConsultationLeadSuccess();
+      setIsSent(true);
+
       setName('');
       setPhone('');
       setCountry('');
       setPurpose('du-lich');
       setExpectedDate('');
-    }, 1000);
+    }, 500);
   };
 
   return (
@@ -176,9 +212,10 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
 
               <button
                 type="submit"
-                className="w-full h-12 flex items-center justify-center gap-2 bg-[#ea580c] hover:bg-[#c2410c] text-white rounded-lg font-bold text-[14px] shadow-md transition-all active:scale-95 cursor-pointer mt-1"
+                disabled={isSubmitting}
+                className="w-full h-12 flex items-center justify-center gap-2 bg-[#ea580c] hover:bg-[#c2410c] text-white rounded-lg font-bold text-[14px] shadow-md transition-all active:scale-95 cursor-pointer mt-1 disabled:opacity-75"
               >
-                <span>Gửi yêu cầu tư vấn</span>
+                <span>{isSubmitting ? 'Đang gửi yêu cầu...' : 'Gửi yêu cầu tư vấn'}</span>
                 <span className="material-symbols-outlined text-[20px]">send</span>
               </button>
 

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { COUNTRIES, LEGAL_DISCLAIMER } from '../data/visaData';
+import { trackConsultationLeadSuccess } from '../utils/tracking';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -23,6 +24,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   const [expectedDate, setExpectedDate] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const submitTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (defaultCountryId && defaultCountryId !== 'all') {
@@ -33,18 +36,52 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
     }
   }, [defaultCountryId, defaultPurpose, isOpen]);
 
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current !== null) {
+        window.clearTimeout(submitTimerRef.current);
+      }
+    };
+  }, []);
+
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isSubmittingRef.current || loading) return;
+
+    if (!e.currentTarget.checkValidity()) {
+      e.currentTarget.reportValidity();
+      return;
+    }
+
+    const trimmedName = fullName.trim();
+    const trimmedPhone = phoneNumber.trim();
+    if (!trimmedName || !trimmedPhone || !country) {
+      return;
+    }
+
+    isSubmittingRef.current = true;
     setLoading(true);
-    setTimeout(() => {
+
+    submitTimerRef.current = window.setTimeout(() => {
+      submitTimerRef.current = null;
+      isSubmittingRef.current = false;
       setLoading(false);
+
+      trackConsultationLeadSuccess();
       setIsSuccess(true);
     }, 500);
   };
 
   const handleResetAndClose = () => {
+    if (submitTimerRef.current !== null) {
+      window.clearTimeout(submitTimerRef.current);
+      submitTimerRef.current = null;
+    }
+    isSubmittingRef.current = false;
+    setLoading(false);
     setIsSuccess(false);
     setFullName('');
     setPhoneNumber('');

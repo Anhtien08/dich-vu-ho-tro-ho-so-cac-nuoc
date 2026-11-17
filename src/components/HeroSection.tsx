@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { COUNTRIES, LEGAL_DISCLAIMER } from '../data/visaData';
+import { trackConsultationLeadSuccess } from '../utils/tracking';
 
 interface HeroSectionProps {
   onSuccessSubmit?: (data: {
@@ -22,21 +23,55 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+  const submitTimerRef = useRef<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    return () => {
+      if (submitTimerRef.current !== null) {
+        window.clearTimeout(submitTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isSubmittingRef.current || isSubmitting) return;
+
+    if (!e.currentTarget.checkValidity()) {
+      e.currentTarget.reportValidity();
+      return;
+    }
+
+    const trimmedName = formData.fullName.trim();
+    const trimmedPhone = formData.phoneNumber.trim();
+    if (!trimmedName || !trimmedPhone || !formData.destinationCountry) {
+      return;
+    }
+
+    isSubmittingRef.current = true;
     setIsSubmitting(true);
-    setTimeout(() => {
+    setIsSubmitted(false);
+
+    const submittedPayload = {
+      name: trimmedName,
+      phone: trimmedPhone,
+      country: formData.destinationCountry,
+      purpose: formData.purpose,
+      expectedDate: formData.expectedDate.trim(),
+    };
+
+    submitTimerRef.current = window.setTimeout(() => {
+      submitTimerRef.current = null;
+      isSubmittingRef.current = false;
       setIsSubmitting(false);
+
+      trackConsultationLeadSuccess();
       setIsSubmitted(true);
+
       if (onSuccessSubmit) {
-        onSuccessSubmit({
-          name: formData.fullName,
-          phone: formData.phoneNumber,
-          country: formData.destinationCountry,
-          purpose: formData.purpose,
-          expectedDate: formData.expectedDate,
-        });
+        onSuccessSubmit(submittedPayload);
       }
       setFormData({
         fullName: '',
