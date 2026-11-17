@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { COUNTRIES, LEGAL_DISCLAIMER } from '../data/visaData';
 import { trackConsultationLeadSuccess } from '../utils/tracking';
+import { submitConsultationToEmail } from '../utils/submitConsultation';
 
 interface HeroSectionProps {
   onSuccessSubmit?: (data: {
@@ -23,18 +24,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const isSubmittingRef = useRef(false);
-  const submitTimerRef = useRef<number | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     return () => {
-      if (submitTimerRef.current !== null) {
-        window.clearTimeout(submitTimerRef.current);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
       }
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isSubmittingRef.current || isSubmitting) return;
@@ -47,12 +50,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
     const trimmedName = formData.fullName.trim();
     const trimmedPhone = formData.phoneNumber.trim();
     if (!trimmedName || !trimmedPhone || !formData.destinationCountry) {
+      setSubmitError('Vui lòng nhập đầy đủ họ tên, số điện thoại và quốc gia dự định đến.');
       return;
     }
 
     isSubmittingRef.current = true;
     setIsSubmitting(true);
     setIsSubmitted(false);
+    setSubmitError(null);
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
     const submittedPayload = {
       name: trimmedName,
@@ -62,10 +70,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
       expectedDate: formData.expectedDate.trim(),
     };
 
-    submitTimerRef.current = window.setTimeout(() => {
-      submitTimerRef.current = null;
-      isSubmittingRef.current = false;
-      setIsSubmitting(false);
+    try {
+      await submitConsultationToEmail(
+        {
+          fullName: trimmedName,
+          phoneNumber: trimmedPhone,
+          countryId: formData.destinationCountry,
+          purposeId: formData.purpose,
+          expectedDate: formData.expectedDate.trim(),
+          sourceForm: 'Form đầu trang',
+        },
+        controller.signal
+      );
+
+      if (controller.signal.aborted) return;
 
       trackConsultationLeadSuccess();
       setIsSubmitted(true);
@@ -80,7 +98,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
         purpose: 'du-lich',
         expectedDate: '',
       });
-    }, 500);
+    } catch (error) {
+      if (
+        (error instanceof DOMException && error.name === 'AbortError') ||
+        controller.signal.aborted
+      ) {
+        return;
+      }
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại sau hoặc gọi Hotline 0911.909.686.'
+      );
+    } finally {
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null;
+      }
+      isSubmittingRef.current = false;
+      if (!controller.signal.aborted) {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   return (
@@ -373,6 +411,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
                     <span className="text-[13px] font-medium">
                       Đã ghi nhận thông tin liên hệ. Chuyên viên tư vấn VISA5S sẽ trao đổi với bạn về phạm vi hỗ trợ và chi phí liên quan.
                     </span>
+                  </div>
+                )}
+
+                {/* Error feedback */}
+                {submitError && (
+                  <div
+                    role="alert"
+                    className="p-3 rounded-lg bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] flex items-start gap-2.5"
+                  >
+                    <span className="material-symbols-outlined text-[#dc2626] text-[20px] shrink-0 mt-0.5">
+                      error
+                    </span>
+                    <span className="text-[13px] font-medium">{submitError}</span>
                   </div>
                 )}
 

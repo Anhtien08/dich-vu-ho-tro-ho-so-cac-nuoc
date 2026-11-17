@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { COUNTRIES, LEGAL_DISCLAIMER } from '../data/visaData';
 import { trackConsultationLeadSuccess } from '../utils/tracking';
+import { submitConsultationToEmail } from '../utils/submitConsultation';
 
 interface FinalCtaSectionProps {
   onOpenPrivacy: () => void;
@@ -14,18 +15,20 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
   const [expectedDate, setExpectedDate] = useState('');
   const [isSent, setIsSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const isSubmittingRef = useRef(false);
-  const submitTimerRef = useRef<number | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     return () => {
-      if (submitTimerRef.current !== null) {
-        window.clearTimeout(submitTimerRef.current);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
       }
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isSubmittingRef.current || isSubmitting) return;
@@ -38,17 +41,32 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
     const trimmedName = name.trim();
     const trimmedPhone = phone.trim();
     if (!trimmedName || !trimmedPhone || !country) {
+      setSubmitError('Vui lòng nhập đầy đủ họ tên, số điện thoại và quốc gia dự định đến.');
       return;
     }
 
     isSubmittingRef.current = true;
     setIsSubmitting(true);
     setIsSent(false);
+    setSubmitError(null);
 
-    submitTimerRef.current = window.setTimeout(() => {
-      submitTimerRef.current = null;
-      isSubmittingRef.current = false;
-      setIsSubmitting(false);
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    try {
+      await submitConsultationToEmail(
+        {
+          fullName: trimmedName,
+          phoneNumber: trimmedPhone,
+          countryId: country,
+          purposeId: purpose,
+          expectedDate: expectedDate.trim(),
+          sourceForm: 'Form cuối trang',
+        },
+        controller.signal
+      );
+
+      if (controller.signal.aborted) return;
 
       trackConsultationLeadSuccess();
       setIsSent(true);
@@ -58,7 +76,27 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
       setCountry('');
       setPurpose('du-lich');
       setExpectedDate('');
-    }, 500);
+    } catch (error) {
+      if (
+        (error instanceof DOMException && error.name === 'AbortError') ||
+        controller.signal.aborted
+      ) {
+        return;
+      }
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại sau hoặc gọi Hotline 0911.909.686.'
+      );
+    } finally {
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null;
+      }
+      isSubmittingRef.current = false;
+      if (!controller.signal.aborted) {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   return (
@@ -225,6 +263,18 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
                   <span className="text-[13px] font-medium">
                     Đã tiếp nhận thông tin! Chuyên viên VISA5S sẽ liên hệ tư vấn cho bạn.
                   </span>
+                </div>
+              )}
+
+              {submitError && (
+                <div
+                  role="alert"
+                  className="p-3 rounded-lg bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] flex items-start gap-2"
+                >
+                  <span className="material-symbols-outlined text-[#dc2626] text-[20px] shrink-0 mt-0.5">
+                    error
+                  </span>
+                  <span className="text-[13px] font-medium">{submitError}</span>
                 </div>
               )}
 

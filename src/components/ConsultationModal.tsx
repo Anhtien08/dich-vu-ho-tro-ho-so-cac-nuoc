@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { COUNTRIES, LEGAL_DISCLAIMER } from '../data/visaData';
 import { trackConsultationLeadSuccess } from '../utils/tracking';
+import { submitConsultationToEmail } from '../utils/submitConsultation';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -24,8 +25,9 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   const [expectedDate, setExpectedDate] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const isSubmittingRef = useRef(false);
-  const submitTimerRef = useRef<number | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     if (defaultCountryId && defaultCountryId !== 'all') {
@@ -34,19 +36,23 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
     if (defaultPurpose) {
       setPurpose(defaultPurpose);
     }
+    if (isOpen) {
+      setSubmitError(null);
+    }
   }, [defaultCountryId, defaultPurpose, isOpen]);
 
   useEffect(() => {
     return () => {
-      if (submitTimerRef.current !== null) {
-        window.clearTimeout(submitTimerRef.current);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
       }
     };
   }, []);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isSubmittingRef.current || loading) return;
@@ -59,30 +65,66 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
     const trimmedName = fullName.trim();
     const trimmedPhone = phoneNumber.trim();
     if (!trimmedName || !trimmedPhone || !country) {
+      setSubmitError('Vui lòng nhập đầy đủ họ tên, số điện thoại và quốc gia dự định đến.');
       return;
     }
 
     isSubmittingRef.current = true;
     setLoading(true);
+    setSubmitError(null);
 
-    submitTimerRef.current = window.setTimeout(() => {
-      submitTimerRef.current = null;
-      isSubmittingRef.current = false;
-      setLoading(false);
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    try {
+      await submitConsultationToEmail(
+        {
+          fullName: trimmedName,
+          phoneNumber: trimmedPhone,
+          countryId: country,
+          purposeId: purpose,
+          expectedDate: expectedDate.trim(),
+          sourceForm: 'Popup tư vấn',
+        },
+        controller.signal
+      );
+
+      if (controller.signal.aborted) return;
 
       trackConsultationLeadSuccess();
       setIsSuccess(true);
-    }, 500);
+    } catch (error) {
+      if (
+        (error instanceof DOMException && error.name === 'AbortError') ||
+        controller.signal.aborted
+      ) {
+        return;
+      }
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại sau hoặc gọi Hotline 0911.909.686.'
+      );
+    } finally {
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null;
+      }
+      isSubmittingRef.current = false;
+      if (!controller.signal.aborted) {
+        setLoading(false);
+      }
+    }
   };
 
   const handleResetAndClose = () => {
-    if (submitTimerRef.current !== null) {
-      window.clearTimeout(submitTimerRef.current);
-      submitTimerRef.current = null;
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
     }
     isSubmittingRef.current = false;
     setLoading(false);
     setIsSuccess(false);
+    setSubmitError(null);
     setFullName('');
     setPhoneNumber('');
     setExpectedDate('');
@@ -311,6 +353,18 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 <span>{loading ? 'Đang gửi yêu cầu...' : 'Gửi yêu cầu tư vấn'}</span>
                 <span className="material-symbols-outlined text-[20px]">send</span>
               </button>
+
+              {submitError && (
+                <div
+                  role="alert"
+                  className="p-3 rounded-lg bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] flex items-start gap-2"
+                >
+                  <span className="material-symbols-outlined text-[#dc2626] text-[20px] shrink-0 mt-0.5">
+                    error
+                  </span>
+                  <span className="text-[13px] font-medium">{submitError}</span>
+                </div>
+              )}
 
               <div className="p-3 rounded-lg bg-[#f8f9ff] border border-[#e2e8f0] text-[12px] text-[#434750] leading-relaxed space-y-1">
                 <p>{LEGAL_DISCLAIMER.formNotice}</p>
