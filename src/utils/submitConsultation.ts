@@ -9,13 +9,13 @@ export interface ConsultationPayload {
   sourceForm: 'Form đầu trang' | 'Form cuối trang' | 'Popup tư vấn';
 }
 
-const DEFAULT_FORMSUBMIT_RECIPIENT = 'visa5giay@gmail.com';
+const DEFAULT_FORMSUBMIT_RECIPIENT = 'tatien08102004@gmail.com';
 
 /**
  * Hỗ trợ cấu hình mã endpoint FormSubmit riêng (lấy từ email xác nhận FormSubmit):
  * - Có thể đặt qua biến môi trường VITE_FORMSUBMIT_ENDPOINT (VD: https://formsubmit.co/abc123... hoặc chỉ mã abc123...)
  * - Hoặc thay trực tiếp giá trị trong FORMSUBMIT_CUSTOM_ENDPOINT bên dưới.
- * Nếu chưa điền mã riêng, hệ thống dùng mặc định email đã kích hoạt: visa5giay@gmail.com.
+ * Nếu chưa điền mã riêng, hệ thống dùng mặc định email tiếp nhận: tatien08102004@gmail.com.
  */
 const FORMSUBMIT_CUSTOM_ENDPOINT = '';
 
@@ -107,7 +107,7 @@ export async function submitConsultationToEmail(
 
   if (data?.message && data.message.toLowerCase().includes('activat')) {
     throw new Error(
-      'Endpoint FormSubmit cần được bấm xác nhận kích hoạt trong email của visa5giay@gmail.com trước khi nhận dữ liệu.'
+      'Endpoint FormSubmit cần được bấm xác nhận kích hoạt trong email của tatien08102004@gmail.com trước khi nhận dữ liệu.'
     );
   }
 
