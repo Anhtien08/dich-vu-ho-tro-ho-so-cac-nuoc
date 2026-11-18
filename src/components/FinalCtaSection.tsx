@@ -163,13 +163,14 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <form method="POST" onSubmit={handleSubmit} className="flex flex-col gap-3">
               <div>
                 <label className="text-[12.5px] font-semibold text-[#1e293b] block mb-1" htmlFor="cta_name">
                   Họ và tên <span className="text-[#ba1a1a]">*</span>
                 </label>
                 <input
                   id="cta_name"
+                  name="full_name"
                   type="text"
                   required
                   placeholder="Họ và tên của bạn"
@@ -185,6 +186,7 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
                 </label>
                 <input
                   id="cta_phone"
+                  name="phone_number"
                   type="tel"
                   required
                   placeholder="Số điện thoại hoặc Zalo"
@@ -200,6 +202,7 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
                 </label>
                 <select
                   id="cta_country"
+                  name="destination_country"
                   required
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
@@ -222,6 +225,7 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
                   </label>
                   <select
                     id="cta_purpose"
+                    name="purpose"
                     value={purpose}
                     onChange={(e) => setPurpose(e.target.value)}
                     className="w-full h-11 px-3 bg-[#f8f9ff] text-[#1e293b] text-[13.5px] rounded-lg border border-[#e2e8f0] outline-none focus:border-[#0060aa] focus:ring-2 focus:ring-[#0060aa]/20"
@@ -239,6 +243,7 @@ export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenPrivacy 
                   </label>
                   <input
                     id="cta_expected"
+                    name="expected_date"
                     type="text"
                     placeholder="VD: Tháng 07/2025"
                     value={expectedDate}

@@ -247,7 +247,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+              <form method="POST" onSubmit={handleSubmit} className="flex flex-col gap-3.5">
                 {/* Full name */}
                 <div className="flex flex-col gap-1">
                   <label className="text-[13px] font-semibold text-[#1e293b]" htmlFor="hero_fullname">
@@ -259,6 +259,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
                     </span>
                     <input
                       id="hero_fullname"
+                      name="full_name"
                       type="text"
                       required
                       placeholder="Nhập họ và tên của bạn"
@@ -280,6 +281,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
                     </span>
                     <input
                       id="hero_phone"
+                      name="phone_number"
                       type="tel"
                       required
                       placeholder="Nhập số điện thoại hoặc Zalo"
@@ -301,6 +303,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
                     </span>
                     <select
                       id="hero_country"
+                      name="destination_country"
                       required
                       value={formData.destinationCountry}
                       onChange={(e) => setFormData({ ...formData, destinationCountry: e.target.value })}
@@ -385,6 +388,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSuccessSubmit, onOpe
                     </span>
                     <input
                       id="hero_expected_date"
+                      name="expected_date"
                       type="text"
                       placeholder="Ví dụ: Tháng 06/2025 hoặc trong 2 tháng tới"
                       value={formData.expectedDate}

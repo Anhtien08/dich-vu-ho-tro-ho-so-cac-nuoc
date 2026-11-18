@@ -197,7 +197,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+            <form method="POST" onSubmit={handleSubmit} className="flex flex-col gap-3.5">
               {/* Full name */}
               <div className="flex flex-col gap-1">
                 <label className="text-[13px] font-semibold text-[#1e293b]" htmlFor="modal_fullname">
@@ -209,6 +209,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   </span>
                   <input
                     id="modal_fullname"
+                    name="full_name"
                     type="text"
                     required
                     placeholder="Nhập họ và tên"
@@ -230,6 +231,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   </span>
                   <input
                     id="modal_phone"
+                    name="phone_number"
                     type="tel"
                     required
                     placeholder="Nhập số điện thoại hoặc Zalo"
@@ -251,6 +253,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   </span>
                   <select
                     id="modal_country"
+                    name="destination_country"
                     required
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
@@ -335,6 +338,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   </span>
                   <input
                     id="modal_expected_date"
+                    name="expected_date"
                     type="text"
                     placeholder="Ví dụ: Tháng 07/2025 hoặc dự kiến cuối năm"
                     value={expectedDate}
